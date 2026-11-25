@@ -56,7 +56,7 @@
       <p align="justify">
         Nada es lo que parecía. La auténtica identidad tras el mito de Lázaro y el propósito oculto de las esferas salen a la luz mientras las facciones se preparan para una guerra inevitable.
       </p>
-      <a href="https://www.amazon.es/dp/B0HLSTMRWCV">
+      <a href="https://www.amazon.es/dp/B0HLSTMRWC">
         <img src="https://img.shields.io/badge/Comprar_en_Amazon_(ES)-FF9900?style=flat-square&logo=amazon&logoColor=black" alt="Comprar Libro 2 ES" />
       </a>
       &nbsp;
@@ -142,7 +142,7 @@ El portal web alojado en este repositorio ofrece una experiencia inmersiva cinem
 
 *Creadores, escritores y desarrolladores del universo Saga Lázaro.*
 
-[💼 Portfolio José Manuel](https://josemhr.github.io/JoseMHR/) • [🐙 GitHub de Elena](https://github.com/ElenaGSSG)
+[🌐 Web de JoseMHR](https://josemhr.github.io/JoseMHR/) • [🌐 Web de ElenaGS](https://elenagssg.github.io/ElenaGSSG/)
 
 </div>
 
