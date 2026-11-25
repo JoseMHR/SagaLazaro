@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saga Lázaro | Web Oficial del Universo Literario</title>
+  <meta name="description" content="Web oficial de la Saga Lázaro (The Lazarus Saga), novelas de fantasía y ciencia ficción creadas por José Manuel Heredia y Elena García. Libros, mapamundi, personajes y enlaces a Amazon y Editorial Adarve.">
+  <link rel="icon" href="images/saga_logo.jpg">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Cinzel & Plus Jakarta Sans & Noto Serif JP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cinzel+Decorative:wght@700;900&family=Noto+Serif+JP:wght@600;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #030712;
+      color: #f3f4f6;
+    }
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+    .font-cinzel-deco {
+      font-family: 'Cinzel Decorative', serif;
+    }
+    .font-jp {
+      font-family: 'Noto Serif JP', 'Cinzel', serif;
+    }
+
+    .glow-cyan {
+      box-shadow: 0 0 45px -10px rgba(6, 182, 212, 0.35);
+    }
+    .glow-purple {
+      box-shadow: 0 0 45px -10px rgba(168, 85, 247, 0.35);
+    }
+    .glow-gold {
+      box-shadow: 0 0 50px -10px rgba(245, 158, 11, 0.3);
+    }
+
+    .book-card {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+    .book-card:hover {
+      transform: translateY(-8px) scale(1.01);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2937;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #374151;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden selection:bg-indigo-600 selection:text-white">
+
+  <!-- Particle canvas for magical ether dust -->
+  <canvas id="ether-canvas" class="fixed inset-0 pointer-events-none -z-10 w-full h-full opacity-60"></canvas>
+
+  <!-- Ambient background glow blobs -->
+  <div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
+    <div class="absolute -top-40 left-1/4 w-[700px] h-[500px] bg-indigo-900/20 blur-[150px] rounded-full animate-pulse"></div>
+    <div class="absolute top-1/3 -right-32 w-[600px] h-[600px] bg-cyan-900/15 blur-[160px] rounded-full"></div>
+    <div class="absolute bottom-10 -left-20 w-[600px] h-[500px] bg-purple-950/25 blur-[150px] rounded-full"></div>
+  </div>
+
+  <!-- STICKY NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/85 border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl overflow-hidden border border-amber-500/40 p-0.5 bg-gradient-to-tr from-amber-600 to-indigo-600 shadow-md shadow-amber-500/20 group-hover:scale-105 transition duration-300">
+          <img src="images/saga_logo.jpg" alt="Saga Lázaro" class="w-full h-full object-cover rounded-[10px]">
+        </div>
+        <div>
+          <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-wider text-white group-hover:text-amber-300 transition" id="nav-brand">
+            Saga Lázaro
+          </span>
+          <span class="block text-[10px] tracking-widest text-slate-400 font-mono uppercase" id="nav-brand-sub">
+            Universo Literario
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center gap-5 text-sm font-medium text-slate-300">
+        <a href="#hero" class="hover:text-amber-300 transition" id="nav-home">Inicio</a>
+        <a href="#novelas" class="hover:text-amber-300 transition" id="nav-books">Novelas</a>
+        <a href="#fases" class="hover:text-amber-300 transition" id="nav-phases">Cronología</a>
+        <a href="#mapa" class="hover:text-amber-300 transition" id="nav-map">Mapamundi</a>
+        <a href="#personajes" class="hover:text-amber-300 transition" id="nav-characters">Personajes</a>
+        <a href="#lore" class="hover:text-amber-300 transition" id="nav-lore">El Mundo</a>
+        <a href="#trailer" class="hover:text-amber-300 transition" id="nav-trailer">Trailer</a>
+        <a href="#autores" class="hover:text-amber-300 transition" id="nav-authors">Autores</a>
+        <a href="#comunidad" class="hover:text-amber-300 transition" id="nav-community">Comunidad</a>
+      </nav>
+
+      <!-- Language Switcher & Mobile Menu Toggle -->
+      <div class="flex items-center gap-3">
+        <!-- Language Switcher Chips -->
+        <div class="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-bold shadow-inner">
+          <button onclick="setLang('es')" id="btn-lang-es" class="px-2.5 py-1.5 rounded-lg transition bg-amber-500 text-slate-950 shadow-sm">
+            ES
+          </button>
+          <button onclick="setLang('en')" id="btn-lang-en" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition">
+            EN
+          </button>
+          <button onclick="setLang('jp')" id="btn-lang-jp" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition font-jp">
+            JP
+          </button>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 px-6 py-4 space-y-3 text-sm">
+      <a href="#hero" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-home">Inicio</a>
+      <a href="#novelas" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-books">Novelas</a>
+      <a href="#fases" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-phases">Cronología</a>
+      <a href="#mapa" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-map">Mapamundi</a>
+      <a href="#personajes" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-characters">Personajes</a>
+      <a href="#lore" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-lore">El Mundo</a>
+      <a href="#trailer" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-trailer">Trailer</a>
+      <a href="#autores" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-authors">Autores</a>
+      <a href="#comunidad" onclick="toggleMobileMenu()" class="block py-1 hover:text-amber-300 transition" id="m-nav-community">Comunidad</a>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-[580px] lg:min-h-[680px] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-900 overflow-hidden">
+      <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-30 select-none pointer-events-none">
+        <img src="images/hero_artwork_crop.jpg" alt="Dos Mundos" class="w-full h-full object-cover scale-105 filter blur-[1px]">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/90"></div>
+      </div>
+
+      <div class="max-w-4xl mx-auto text-center space-y-6">
+        
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-semibold tracking-wide uppercase">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+          <span id="hero-badge">Saga Literaria · Fantasía Oscura & Ciencia Ficción</span>
+        </div>
+
+        <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-xl" id="hero-title">
+          Saga Lázaro
+        </h1>
+
+        <p class="font-cinzel text-xl sm:text-2xl md:text-3xl text-amber-200/90 font-medium tracking-wide" id="hero-tagline">
+          Dos mundos. Una barrera rota. El despertar de un poder olvidado.
+        </p>
+
+        <p class="max-w-3xl mx-auto text-base sm:text-lg text-slate-300 leading-relaxed font-light" id="hero-desc">
+          La tecnología de Arcanum y la magia de Celestia nunca debieron encontrarse. Adéntrate en una saga donde la realidad se fragmenta y el destino de dos civilizaciones descansa en manos de aquellos que se atreven a desafiar lo imposible.
+        </p>
+
+        <div class="pt-6 flex flex-wrap items-center justify-center gap-4">
+          <a href="#novelas" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-slate-950 font-bold hover:brightness-110 shadow-lg shadow-amber-600/30 transition flex items-center gap-2" id="hero-btn-books">
+            <i data-lucide="book-open" class="w-5 h-5"></i>
+            <span>Explorar Novelas</span>
+          </a>
+          <a href="#trailer" class="px-7 py-3.5 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-200 font-semibold hover:bg-slate-800 hover:text-white transition flex items-center gap-2" id="hero-btn-trailer">
+            <i data-lucide="play-circle" class="w-5 h-5 text-red-400"></i>
+            <span>Ver Booktrailer Oficial</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: LAS NOVELAS DISPONIBLES -->
+    <section id="novelas" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="sec-books-title">
+          Las Novelas de la Saga
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base" id="sec-books-sub">
+          Descubre los libros ya publicados en español e inglés, disponibles en Amazon Kindle, tapa blanda y en la editorial española Adarve.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <!-- LIBRO 1 -->
+        <div class="book-card bg-slate-900/60 rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col md:flex-row gap-6 relative overflow-hidden backdrop-blur-sm glow-cyan">
+          <div class="md:w-56 shrink-0 flex flex-col items-center">
+            <div class="w-48 sm:w-52 h-72 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/80 group relative">
+              <img id="book-1-cover" src="images/cover_es_1.jpg" alt="Portada Libro 1" class="w-full h-full object-cover">
+            </div>
+            <span class="mt-3 px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20" id="book-1-badge">
+              Libro 1 · Saga Principal
+            </span>
+          </div>
+
+          <div class="flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-widest" id="book-1-subbadge">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Volumen Inicial
+              </div>
+              <h3 class="font-cinzel text-2xl font-bold text-white mt-1" id="book-1-title">
+                La senda de Lázaro: El choque de dos mundos
+              </h3>
+              <p class="text-xs text-slate-400 mt-1" id="book-1-authors">
+                Por <strong>José Manuel Heredia</strong> y <strong>Elena García</strong>
+              </p>
+              
+              <div class="text-slate-300 text-sm leading-relaxed mt-4 space-y-2 font-light max-h-56 overflow-y-auto pr-2 scrollbar-thin" id="book-1-synopsis">
+                <p><strong>A un lado de la barrera, la magia controla los elementos. Al otro, la tecnología lo controla todo.</strong></p>
+                <p>Durante siglos, una frontera invisible mantuvo el continente dividido en dos mundos que ni siquiera sabían de la existencia del otro. En Celestia sobrevivieron las tradiciones elementales, mientras que en Arcanum las corporaciones cambiaron los mitos por trenes magnéticos, fábricas y un control absoluto sobre la población.</p>
+                <p>Cuando Yui, una chica de pelo blanco vestida con ropas de otra era, aterriza en mitad de Arcanum controlando el viento, el régimen entra en pánico y la encierra para experimentar con ella. Sarah, una estudiante que oculta sus propios dones mentales, y Taos, un joven investigador con una extraña esfera temporal, deciden sacarla de allí en una huida sin retorno.</p>
+              </div>
+            </div>
+
+            <!-- Purchase Buttons -->
+            <div class="pt-4 border-t border-slate-800/80 flex flex-wrap items-center gap-3">
+              <a id="book-1-amazon-btn" href="https://www.amazon.es/dp/B0HLSQKMR1" target="_blank" rel="noopener noreferrer" 
+                 class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                <span id="btn-text-amazon-1">Comprar en Amazon</span>
+              </a>
+              <a href="https://editorial-adarve.com/editorial/libro/la-leyenda-de-las-esferas/" target="_blank" rel="noopener noreferrer" 
+                 class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center gap-2 transition" id="book-1-adarve-btn">
+                <i data-lucide="external-link" class="w-4 h-4 text-indigo-400"></i>
+                <span>Editorial Adarve</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIBRO 2 -->
+        <div class="book-card bg-slate-900/60 rounded-3xl p-6 sm:p-8 border border-slate-800 flex flex-col md:flex-row gap-6 relative overflow-hidden backdrop-blur-sm glow-purple">
+          <div class="md:w-56 shrink-0 flex flex-col items-center">
+            <div class="w-48 sm:w-52 h-72 rounded-2xl overflow-hidden shadow-2xl border border-slate-700/80 group relative">
+              <img id="book-2-cover" src="images/cover_es_2.jpg" alt="Portada Libro 2" class="w-full h-full object-cover">
+            </div>
+            <span class="mt-3 px-3 py-1 rounded-full text-xs font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20" id="book-2-badge">
+              Libro 2 · Continuación
+            </span>
+          </div>
+
+          <div class="flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-widest" id="book-2-subbadge">
+                <i data-lucide="flame" class="w-3.5 h-3.5"></i> Revelaciones Clave
+              </div>
+              <h3 class="font-cinzel text-2xl font-bold text-white mt-1" id="book-2-title">
+                El secreto de Lázaro: El despertar de la verdad
+              </h3>
+              <p class="text-xs text-slate-400 mt-1" id="book-2-authors">
+                Por <strong>José Manuel Heredia</strong> y <strong>Elena García</strong>
+              </p>
+              
+              <div class="text-slate-300 text-sm leading-relaxed mt-4 space-y-2 font-light max-h-56 overflow-y-auto pr-2 scrollbar-thin" id="book-2-synopsis">
+                <p><strong>La frontera ha caído y la paz tiene los días contados.</strong></p>
+                <p>Sin la Gran Barrera, los diferentes territorios del mundo han quedado al descubierto. En Celestia, la joven e inexperta reina apenas tiene tiempo para respirar mientras las tropas del País del Fuego asedian sus murallas y en su propia corte se prepara una traición.</p>
+                <p>Para salvar a su gente, mandará a sus amigos en un barco a través del océano prohibido en busca de una alianza con el País del Agua. Pero la diosa Samy tiene sus propios planes y separa sus destinos, mientras Aiden sigue moviendo los hilos en la sombra para desatar el caos definitivo.</p>
+              </div>
+            </div>
+
+            <!-- Purchase Buttons -->
+            <div class="pt-4 border-t border-slate-800/80 flex flex-wrap items-center gap-3">
+              <a id="book-2-amazon-btn" href="https://www.amazon.es/dp/B0HLSTMRWCV" target="_blank" rel="noopener noreferrer" 
+                 class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition">
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                <span id="btn-text-amazon-2">Comprar en Amazon</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CRONOLOGÍA DE LA SAGA (4 FASES REORDENADAS) -->
+    <section id="fases" class="py-20 bg-slate-950/80 border-y border-slate-900 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-indigo-400" id="phases-badge">
+            Cronología de la Historia
+          </span>
+          <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="phases-title">
+            Las Cuatro Fases de la Saga
+          </h2>
+          <p class="text-slate-400 text-sm" id="phases-sub">
+            La trayectoria completa de la saga, desde las novelas publicadas hasta la precuela y el desenlace final.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- FASE 1: EL CHOQUE DE DOS MUNDOS (PRIMER LIBRO PUBLICADO) -->
+          <div class="bg-slate-900/50 rounded-2xl border border-slate-800 p-5 flex flex-col justify-between hover:border-cyan-500/40 transition group">
+            <div>
+              <div class="h-44 rounded-xl overflow-hidden bg-slate-950 mb-4 border border-slate-800 flex items-center justify-center relative">
+                <img src="images/book_phase_2.jpg" alt="Fase 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-950/80 text-cyan-300 border border-cyan-500/30">
+                  Fase I · Primer libro
+                </span>
+              </div>
+              <h4 class="font-cinzel font-bold text-lg text-white group-hover:text-cyan-300 transition" id="phase-1-title">
+                El choque de dos mundos
+              </h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed" id="phase-1-desc">
+                La barrera ha caído. La tecnología y la magia se enfrentan mientras un grupo de elegidos despierta en un mundo fracturado. La leyenda comienza aquí.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              <span id="phase-1-status">Ya Disponible en Amazon</span>
+            </div>
+          </div>
+
+          <!-- FASE 2: EL DESPERTAR DE LA VERDAD (SEGUNDO LIBRO PUBLICADO) -->
+          <div class="bg-slate-900/50 rounded-2xl border border-slate-800 p-5 flex flex-col justify-between hover:border-purple-500/40 transition group">
+            <div>
+              <div class="h-44 rounded-xl overflow-hidden bg-slate-950 mb-4 border border-slate-800 flex items-center justify-center relative">
+                <img src="images/book_phase_3.jpg" alt="Fase 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-950/80 text-purple-300 border border-purple-500/30">
+                  Fase II · Segundo libro
+                </span>
+              </div>
+              <h4 class="font-cinzel font-bold text-lg text-white group-hover:text-purple-300 transition" id="phase-2-title">
+                El despertar de la verdad
+              </h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed" id="phase-2-desc">
+                Nada es lo que parece. El verdadero rostro de Lázaro y el propósito de los elegidos salen a la luz contra el auténtico enemigo.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+              <span id="phase-2-status">Ya Disponible en Amazon</span>
+            </div>
+          </div>
+
+          <!-- FASE 3: EL ORIGEN DE LAS ESFERAS (PRECUELA) -->
+          <div class="bg-slate-900/50 rounded-2xl border border-slate-800 p-5 flex flex-col justify-between hover:border-indigo-500/40 transition group">
+            <div>
+              <div class="h-44 rounded-xl overflow-hidden bg-slate-950 mb-4 border border-slate-800 flex items-center justify-center relative">
+                <img src="images/saga_logo.jpg" alt="Fase 3" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-950/80 text-amber-300 border border-amber-500/30">
+                  Fase III · Precuela
+                </span>
+              </div>
+              <h4 class="font-cinzel font-bold text-lg text-white group-hover:text-amber-300 transition" id="phase-3-title">
+                El Origen de las Esferas
+              </h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed" id="phase-3-desc">
+                Antes de la colisión, hubo una chispa. Descubre el pasado oscuro de Lázaro, la ambición de Aiden y el nacimiento de todo hace un siglo.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-medium text-amber-400 flex items-center gap-1">
+              <i data-lucide="archive" class="w-3.5 h-3.5"></i>
+              <span id="phase-3-status">Precuela & Orígenes</span>
+            </div>
+          </div>
+
+          <!-- FASE 4: EL DESTINO FINAL (DESENLACE) -->
+          <div class="bg-slate-900/50 rounded-2xl border border-slate-800 p-5 flex flex-col justify-between hover:border-amber-500/40 transition group">
+            <div>
+              <div class="h-44 rounded-xl overflow-hidden bg-slate-950 mb-4 border border-slate-800 flex items-center justify-center relative">
+                <img src="images/book_phase_4.jpg" alt="Fase 4" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-950/80 text-amber-300 border border-amber-500/30">
+                  Fase IV · Desenlace
+                </span>
+              </div>
+              <h4 class="font-cinzel font-bold text-lg text-white group-hover:text-amber-300 transition" id="phase-4-title">
+                El Destino Final
+              </h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed" id="phase-4-desc">
+                Un futuro aún no escrito. El desenlace que cambiará la historia para siempre permanece oculto en las sombras...
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-medium text-amber-400 flex items-center gap-1">
+              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+              <span id="phase-4-status">Próximo Desenlace</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: MAPAMUNDI INTERACTIVO -->
+    <section id="mapa" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-emerald-400" id="map-badge">
+          Geografía del Continente
+        </span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="map-title">
+          El Mapamundi de Samiria
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base" id="map-sub">
+          Explora la cartografía oficial del continente, sus tres grandes regiones y las ciudades donde transcurre la trama.
+        </p>
+      </div>
+
+      <!-- Map Selector Switcher -->
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <button onclick="switchMap('oficial')" id="btn-map-oficial" class="px-5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md shadow-indigo-600/30 transition">
+          🗺️ Mapamundi Oficial
+        </button>
+        <button onclick="switchMap('boceto')" id="btn-map-boceto" class="px-5 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition">
+          📜 Boceto Original
+        </button>
+      </div>
+
+      <!-- Map Display Frame -->
+      <div class="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/80 shadow-2xl p-2 sm:p-4 mb-16 glow-cyan">
+        <div class="rounded-2xl overflow-hidden bg-slate-950 relative border border-slate-800">
+          <img id="map-display-img" src="images/mapamundi_oficial.png" alt="Mapamundi de la Saga Lázaro" class="w-full h-auto object-cover max-h-[620px] transition duration-300">
+          <div class="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-slate-950/80 backdrop-blur-md border border-slate-700/60 text-slate-300 text-xs flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-4 h-4 text-emerald-400"></i>
+            <span id="map-caption">Continente de Samiria · Cartografía Oficial</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Las 3 Zonas del Mundo -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Zona 1: Tierras Modernas -->
+        <div class="bg-slate-900/60 rounded-3xl p-6 border border-cyan-900/40 backdrop-blur-sm space-y-4">
+          <div class="flex items-center gap-3 pb-3 border-b border-cyan-900/30">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold">
+              01
+            </div>
+            <div>
+              <h3 class="font-cinzel text-lg font-bold text-white">Tierras Modernas (Oeste)</h3>
+              <span class="text-xs text-cyan-400 font-mono">El territorio de Sarah y Taos</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Una civilización marcada por un acelerado desarrollo tecnológico, el control estricto del régimen y la vida en urbes amuralladas conectadas por ferrocarril eléctrico.
+          </p>
+          <div class="space-y-2.5 text-xs text-slate-300 pt-2">
+            <div><strong class="text-cyan-300">Arcanum:</strong> Capital tecnológica, sede del laboratorio del Enclave y corazón financiero y político.</div>
+            <div><strong class="text-cyan-300">Luminar:</strong> Ciudad natal de Sarah, de ambiente tradicional y pausado, con casas bajas.</div>
+            <div><strong class="text-cyan-300">Avesta:</strong> Fortaleza amurallada inexpugnable con rascacielos de acero y barrios históricos.</div>
+            <div><strong class="text-cyan-300">Phelios:</strong> Pueblo tranquilo al noreste con una pintoresca plaza y monumentos tradicionales.</div>
+            <div><strong class="text-cyan-300">Ardenia:</strong> Poblado en la cima de la montaña, rodeado por acueductos, cascadas y un templo antiguo.</div>
+          </div>
+        </div>
+
+        <!-- Zona 2: Tierras Neutrales -->
+        <div class="bg-slate-900/60 rounded-3xl p-6 border border-amber-900/40 backdrop-blur-sm space-y-4">
+          <div class="flex items-center gap-3 pb-3 border-b border-amber-900/30">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
+              02
+            </div>
+            <div>
+              <h3 class="font-cinzel text-lg font-bold text-white">Tierras Neutrales (Norte)</h3>
+              <span class="text-xs text-amber-400 font-mono">Comercio, frontera & enigmas</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            La región intermedia entre los dos grandes mundos. No responde a ningún bando directo y vive volcada al intercambio, la cultura y la investigación.
+          </p>
+          <div class="space-y-2.5 text-xs text-slate-300 pt-2">
+            <div><strong class="text-amber-300">Halcyon:</strong> La ciudad que nunca duerme. Oasis mercantil iluminado las 24 horas, repleto de bazares, música y ocio.</div>
+            <div><strong class="text-amber-300">Gloriam (La Gran Torre):</strong> Capital septentrional. Alberga una torre colosal erigida generación tras generación para rozar las nubes.</div>
+          </div>
+        </div>
+
+        <!-- Zona 3: Tierras del Reino -->
+        <div class="bg-slate-900/60 rounded-3xl p-6 border border-purple-900/40 backdrop-blur-sm space-y-4">
+          <div class="flex items-center gap-3 pb-3 border-b border-purple-900/30">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold">
+              03
+            </div>
+            <div>
+              <h3 class="font-cinzel text-lg font-bold text-white">Tierras del Reino (Este)</h3>
+              <span class="text-xs text-purple-400 font-mono">El hogar de Yui y la magia elemental</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Una sociedad de raíces medievales y fantásticas, donde los elementos primordiales, la dinastía real y la naturaleza indómita marcan el compás cotidiano.
+          </p>
+          <div class="space-y-2.5 text-xs text-slate-300 pt-2">
+            <div><strong class="text-purple-300">Celestia:</strong> Capital del reino, ubicada junto a un gran pantano y protegida por imponentes murallas y el castillo real.</div>
+            <div><strong class="text-purple-300">Valoria:</strong> Ciudad aliada de calles amplias, edificios de madera y piedra y continuo tránsito de carruajes.</div>
+            <div><strong class="text-purple-300">Sylphrena:</strong> Cuna natal de Helene, cruzando el árido desierto meridional.</div>
+            <div><strong class="text-purple-300">Calendria:</strong> Dominios gobernados por Stefan y la corte de Amir.</div>
+            <div><strong class="text-purple-300">Isla del Clan del Fuego:</strong> Isla lejana donde se resguardan los guardianes del templo ígneo.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: PERSONAJES -->
+    <section id="personajes" class="py-24 bg-slate-950/80 border-y border-slate-900 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <span class="text-xs font-bold uppercase tracking-widest text-amber-400" id="chars-badge">
+            Dramatis Personae
+          </span>
+          <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="chars-title">
+            Los Protagonistas y Figuras Clave
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base" id="chars-sub">
+            Conoce a los jóvenes elegidos que desafían a dos civilizaciones y a las fuerzas que mueven los hilos del conflicto.
+          </p>
+        </div>
+
+        <!-- 4 Protagonistas Principales -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          
+          <!-- SARAH -->
+          <div class="bg-slate-900/70 rounded-3xl p-6 border border-slate-800 hover:border-indigo-500/40 transition flex flex-col justify-between group glow-cyan">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                  Luminar / Arcanum
+                </span>
+                <span class="text-xs text-slate-500 font-mono">19 años</span>
+              </div>
+              <h3 class="font-cinzel text-2xl font-bold text-white group-hover:text-indigo-300 transition">
+                Sarah
+              </h3>
+              <p class="text-xs font-semibold text-indigo-400 mt-1">Dones Psíquicos & Determinación</p>
+              <p class="text-xs text-slate-300 mt-3 leading-relaxed font-light">
+                Joven de belleza serena y gracia etérea. Bajo un aura reservada y reflexiva, oculta una mirada perspicaz y dones mentales extraordinarios. Su amor incondicional por su hermana Noa es el motor inquebrantable que la empuja a adentrarse en lo desconocido.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="shield" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Protectora de su familia</span>
+            </div>
+          </div>
+
+          <!-- TAOS -->
+          <div class="bg-slate-900/70 rounded-3xl p-6 border border-slate-800 hover:border-cyan-500/40 transition flex flex-col justify-between group glow-cyan">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  El Enclave
+                </span>
+                <span class="text-xs text-slate-500 font-mono">20 años</span>
+              </div>
+              <h3 class="font-cinzel text-2xl font-bold text-white group-hover:text-cyan-300 transition">
+                Taos
+              </h3>
+              <p class="text-xs font-semibold text-cyan-400 mt-1">Investigador & Portador Temporal</p>
+              <p class="text-xs text-slate-300 mt-3 leading-relaxed font-light">
+                Estudiante de inteligencia privilegiada criado por los sabios del Enclave. De mirada vivaz y mente analítica, posee una misteriosa esfera capaz de alterar el curso del tiempo. Su búsqueda científica acabará cruzándose con fuerzas míticas olvidadas.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-cyan-400"></i>
+              <span>Guardián de la esfera del tiempo</span>
+            </div>
+          </div>
+
+          <!-- YUI -->
+          <div class="bg-slate-900/70 rounded-3xl p-6 border border-slate-800 hover:border-purple-500/40 transition flex flex-col justify-between group glow-purple">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                  Celestia
+                </span>
+                <span class="text-xs text-slate-500 font-mono">16 años</span>
+              </div>
+              <h3 class="font-cinzel text-2xl font-bold text-white group-hover:text-purple-300 transition">
+                Yui
+              </h3>
+              <p class="text-xs font-semibold text-purple-400 mt-1">Elementalista del Viento</p>
+              <p class="text-xs text-slate-300 mt-3 leading-relaxed font-light">
+                Joven de cabellera blanca con reflejos plateados y mirada azul profunda. Hija de la legendaria Helene, carga con la herencia de un linaje formidable. Su dulzura esconde una conexión innata con el viento capaz de cambiar el destino de dos mundos.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="wind" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Heredera del poder de Helene</span>
+            </div>
+          </div>
+
+          <!-- JACK -->
+          <div class="bg-slate-900/70 rounded-3xl p-6 border border-slate-800 hover:border-amber-500/40 transition flex flex-col justify-between group glow-gold">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  Tierras del Reino
+                </span>
+                <span class="text-xs text-slate-500 font-mono">24 años</span>
+              </div>
+              <h3 class="font-cinzel text-2xl font-bold text-white group-hover:text-amber-300 transition">
+                Jack
+              </h3>
+              <p class="text-xs font-semibold text-amber-400 mt-1">Guardián & Espadachín</p>
+              <p class="text-xs text-slate-300 mt-3 leading-relaxed font-light">
+                Aventurero experimentado de porte atlético y temple sereno. Entrenado directamente por Helene, su espada y sus reflejos lo convierten en el custodio más leal. Su vida está consagrada a proteger a Yui en cumplimiento de un juramento solemne.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="sword" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Guardián de juramento</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Figuras Notables por Facciones -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+          
+          <!-- Figuras Místicas -->
+          <div class="bg-slate-900/40 rounded-2xl p-5 border border-slate-800 space-y-3">
+            <h4 class="font-cinzel font-bold text-sm text-amber-300 flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> Figuras Místicas
+            </h4>
+            <div class="space-y-2 text-slate-300">
+              <p><strong class="text-white">Lázaro:</strong> Figura enigmática y teatral de mirada profunda. Observador itinerante que interviene desde la penumbra guiando el destino de los elegidos.</p>
+              <p><strong class="text-white">Samy (10.000+ años):</strong> Entidad ancestral custodia del templo primordial y mentora de Lázaro, garante del balance universal.</p>
+              <p><strong class="text-white">Pequeña Criatura:</strong> Ser escamado de astucia insólita y lealtad absoluta a Samy.</p>
+            </div>
+          </div>
+
+          <!-- Arcanum & El Enclave -->
+          <div class="bg-slate-900/40 rounded-2xl p-5 border border-slate-800 space-y-3">
+            <h4 class="font-cinzel font-bold text-sm text-cyan-300 flex items-center gap-2">
+              <i data-lucide="cpu" class="w-4 h-4"></i> Arcanum & Enclave
+            </h4>
+            <div class="space-y-2 text-slate-300">
+              <p><strong class="text-white">Beatriz:</strong> Mente científica brillante y jefa del proyecto de control social en Arcanum.</p>
+              <p><strong class="text-white">Ethan:</strong> Magnate corporativo supremo, el verdadero poder en la sombra de las metrópolis.</p>
+              <p><strong class="text-white">Kaida:</strong> Líder maternal del Enclave, protectora de Taos y baluarte del orden operativo.</p>
+              <p><strong class="text-white">Nero & Nadia:</strong> Expertos indispensables en hackeo de sistemas y maestría mecánica.</p>
+            </div>
+          </div>
+
+          <!-- Reino de Celestia -->
+          <div class="bg-slate-900/40 rounded-2xl p-5 border border-slate-800 space-y-3">
+            <h4 class="font-cinzel font-bold text-sm text-purple-300 flex items-center gap-2">
+              <i data-lucide="crown" class="w-4 h-4"></i> Corte de Celestia
+            </h4>
+            <div class="space-y-2 text-slate-300">
+              <p><strong class="text-white">Helene:</strong> Madre de Yui, elementalista legendaria que salvó el continente en la guerra del fuego.</p>
+              <p><strong class="text-white">Amir:</strong> Monarca reinante, pragmático y decidido a cualquier sacrificio por la supervivencia del reino.</p>
+              <p><strong class="text-white">Stefan:</strong> Joven noble ambicioso de la casa real.</p>
+              <p><strong class="text-white">Aiden:</strong> Estratega oscuro que manipula las tensiones políticas para adueñarse de las Esferas.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: EL LORE (CELESTIA VS ARCANUM) & CROSSOVER RPG -->
+    <section id="lore" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-cyan-400" id="lore-badge">
+          El Conflicto Central
+        </span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="lore-title">
+          El Choque de Dos Civilizaciones
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base" id="lore-sub">
+          Separados durante siglos por una barrera invisible, ambos lados del continente desarrollaron visiones del mundo completamente opuestas.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- CELESTIA -->
+        <div class="bg-gradient-to-br from-indigo-950/40 via-purple-950/20 to-slate-900/60 p-8 rounded-3xl border border-indigo-900/50 backdrop-blur-sm space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h3 class="font-cinzel text-2xl font-bold text-indigo-300" id="lore-celestia-title">
+                Celestia (Reino de la Magia)
+              </h3>
+              <span class="text-xs text-indigo-400 font-mono" id="lore-celestia-sub">Tradición, Naturaleza & Elementos</span>
+            </div>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed" id="lore-celestia-desc">
+            En Celestia la vida se rige por las fuerzas elementales del viento, el fuego, el agua y la tierra. Sus habitantes viven en comunión con antiguas deidades como la diosa Samy. Aquí reside <strong>Yui</strong>, una elementalista capaz de invocar los vendavales que acabará accidentalmente en el corazón de Arcanum al quebrar la frontera.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-400 pt-2 border-t border-indigo-900/40">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> <span id="lore-celestia-p1">Reino del Viento, Fuego y Agua</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> <span id="lore-celestia-p2">Gobierno de linaje monárquico ancestral</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> <span id="lore-celestia-p3">Manipulación de orbes místicos</span></li>
+          </ul>
+        </div>
+
+        <!-- ARCANUM -->
+        <div class="bg-gradient-to-br from-cyan-950/40 via-slate-950/40 to-slate-900/60 p-8 rounded-3xl border border-cyan-900/50 backdrop-blur-sm space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h3 class="font-cinzel text-2xl font-bold text-cyan-300" id="lore-arcanum-title">
+                Arcanum (Mundo Tecnológico)
+              </h3>
+              <span class="text-xs text-cyan-400 font-mono" id="lore-arcanum-sub">Megacorporaciones, Ciencia & Censura</span>
+            </div>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed" id="lore-arcanum-desc">
+            Una civilización industrializada y avanzada dominada por trenes magnéticos, factorías y rascacielos. El régimen corporativo impone una estricta censura sobre la historia antigua. Es el hogar de <strong>Sarah</strong>, una brillante estudiante con poderes psíquicos latentes, y de <strong>Taos</strong>, un inquieto científico portador de una esfera capaz de doblar el tiempo.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-400 pt-2 border-t border-cyan-900/40">
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> <span id="lore-arcanum-p1">Tecnología magnética y ciencia experimental</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> <span id="lore-arcanum-p2">Censura de Estado y laboratorios secretos</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> <span id="lore-arcanum-p3">Evolución hacia el universo RPG Echoes of Truth</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Video game universe crossover callout -->
+      <div class="mt-12 bg-slate-900/80 rounded-2xl p-6 sm:p-8 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+            <i data-lucide="gamepad-2" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <h4 class="font-cinzel font-bold text-lg text-white" id="rpg-title">
+              ¿Sabías que el universo de Lázaro cuenta con su propio Videojuego RPG?
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1" id="rpg-desc">
+              <strong>Echoes of Truth</strong> es un JRPG táctico creado con el framework <strong>Taos Game Maker</strong> en Godot, ambientado en este mismo mundo.
+            </p>
+          </div>
+        </div>
+        <a href="https://josemhr.github.io/TaosGameMaker/" target="_blank" rel="noopener noreferrer" 
+           class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold text-xs shrink-0 flex items-center gap-2 transition border border-emerald-500/30">
+          <span>Ver Taos Game Maker</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION: BOOKTRAILER OFICIAL -->
+    <section id="trailer" class="py-20 bg-slate-950/90 border-t border-slate-900 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center space-y-4 mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-400" id="trailer-badge">
+          Avance Cinemático
+        </span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="trailer-title">
+          Booktrailer de la Saga
+        </h2>
+        <p class="text-slate-400 text-sm" id="trailer-sub">
+          Sumérgete en la atmósfera, la tensión y los enigmas de La Saga Lázaro a través de su avance cinemático.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl glow-cyan p-2 sm:p-4">
+        <div id="trailer-container" class="relative w-full overflow-hidden rounded-2xl bg-slate-950 flex items-center justify-center cursor-pointer group" style="padding-top: 56.25%;" onclick="playTrailer()">
+          <img src="images/trailer_thumbnail.jpg" alt="Trailer Thumbnail" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3">
+            <div class="w-20 h-20 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-xl shadow-red-600/50 group-hover:scale-110 group-hover:bg-red-500 transition duration-300">
+              <i data-lucide="play" class="w-9 h-9 fill-current ml-1"></i>
+            </div>
+            <span class="text-xs font-bold tracking-widest text-slate-200 uppercase bg-slate-950/70 px-3 py-1 rounded-full border border-slate-700/60 backdrop-blur-md">
+              Reproducir Booktrailer (YouTube)
+            </span>
+          </div>
+        </div>
+        <div class="mt-3 text-center">
+          <a href="https://www.youtube.com/watch?v=J-JiVOMRYLo" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-red-400 transition inline-flex items-center gap-1">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Abrir directamente en YouTube
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: SOBRE LOS AUTORES -->
+    <section id="autores" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400" id="authors-badge">
+          Detrás de las Páginas
+        </span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="authors-title">
+          Sobre los Autores
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base" id="authors-sub">
+          Ingeniería de software, pasión por las historias inmersivas y devoción por la fantasía contemporánea.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-slate-900/60 rounded-3xl p-8 sm:p-10 border border-slate-800 backdrop-blur-sm flex flex-col sm:flex-row items-center gap-8">
+        <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-amber-500/40 p-1 shrink-0 shadow-xl shadow-amber-500/10">
+          <img src="images/saga_logo.jpg" alt="José Manuel Heredia Reyes" class="w-full h-full object-cover rounded-full">
+        </div>
+
+        <div class="space-y-4 text-center sm:text-left">
+          <div>
+            <h3 class="font-cinzel text-2xl font-bold text-white">
+              José Manuel Heredia Reyes & Elena García Sánchez
+            </h3>
+            <p class="text-xs font-mono text-amber-400 mt-0.5" id="authors-role">
+              Autores & Creadores del Universo Lázaro
+            </p>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed font-light" id="authors-bio">
+            <strong>José Manuel Heredia</strong> (Málaga, 1986), ingeniero de software y desarrollador independiente de videojuegos bajo el seudónimo de Taos, ideó el universo de Lázaro tras años explorando la narrativa y el diseño de mundos interactivos. Junto a <strong>Elena García</strong>, ingeniera de software y coautora, forjaron una ambientación donde la magia elemental y la tecnología industrial colisionan, dando lugar a una mitología compartida que une novelas y videojuegos.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-3">
+            <a href="https://josemhr.github.io/JoseMHR/" target="_blank" rel="noopener noreferrer" 
+               class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-1.5">
+              <i data-lucide="user" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Portfolio del Autor</span>
+            </a>
+            <a href="https://editorial-adarve.com/editorial/libro/la-leyenda-de-las-esferas/" target="_blank" rel="noopener noreferrer" 
+               class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-1.5">
+              <i data-lucide="book" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Ficha Editorial Adarve</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: COMUNIDAD Y REDES -->
+    <section id="comunidad" class="py-20 bg-slate-950 border-t border-slate-900 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center space-y-4 mb-12">
+        <h2 class="font-cinzel text-3xl font-extrabold text-white" id="community-title">
+          Únete a la Comunidad
+        </h2>
+        <p class="text-slate-400 text-sm" id="community-sub">
+          Canales oficiales para seguir las novedades, comentar la historia y contactar directamente.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
+        
+        <!-- Telegram -->
+        <a href="https://t.me/taosworld" target="_blank" rel="noopener noreferrer" 
+           class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center p-2.5 group-hover:scale-110 transition">
+            <img src="images/social_telegram.png" alt="Telegram" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h4 class="font-bold text-white text-sm">Telegram</h4>
+            <span class="text-xs text-slate-400">@taosworld</span>
+          </div>
+        </a>
+
+        <!-- Twitter / X -->
+        <a href="https://twitter.com/Taos_world" target="_blank" rel="noopener noreferrer" 
+           class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-600 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center p-2.5 group-hover:scale-110 transition">
+            <img src="images/social_twitter.png" alt="Twitter" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h4 class="font-bold text-white text-sm">X / Twitter</h4>
+            <span class="text-xs text-slate-400">@Taos_world</span>
+          </div>
+        </a>
+
+        <!-- Discord -->
+        <a href="https://discord.com/channels/1209468022742323231" target="_blank" rel="noopener noreferrer" 
+           class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-indigo-500/40 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center p-2.5 group-hover:scale-110 transition">
+            <img src="images/social_discord.png" alt="Discord" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h4 class="font-bold text-white text-sm">Discord</h4>
+            <span class="text-xs text-slate-400">Comunidad Oficial</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-900 py-10 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p id="footer-copy">
+        COPYRIGHT © <span id="year">2026</span> SAGA LÁZARO. TODOS LOS DERECHOS RESERVADOS.
+      </p>
+      <div class="flex items-center gap-4">
+        <a href="#hero" class="hover:text-amber-300 transition flex items-center gap-1">
+          <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+          <span id="footer-top">Volver arriba</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MULTILINGUAL DICTIONARY & LOGIC SCRIPT -->
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function playTrailer() {
+      const container = document.getElementById('trailer-container');
+      container.onclick = null;
+      container.className = 'relative w-full overflow-hidden rounded-2xl bg-black';
+      container.innerHTML = '<iframe class="absolute inset-0 w-full h-full rounded-2xl" src="https://www.youtube-nocookie.com/embed/J-JiVOMRYLo?autoplay=1&rel=0" title="Booktrailer Oficial Saga Lázaro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    }
+
+    function switchMap(type) {
+      const img = document.getElementById('map-display-img');
+      const caption = document.getElementById('map-caption');
+      const btnOficial = document.getElementById('btn-map-oficial');
+      const btnBoceto = document.getElementById('btn-map-boceto');
+
+      if (type === 'boceto') {
+        img.src = 'images/boceto_samiria.png';
+        caption.textContent = 'Boceto Original Manuscrito de Samiria';
+        btnBoceto.className = 'px-5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md shadow-indigo-600/30 transition';
+        btnOficial.className = 'px-5 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition';
+      } else {
+        img.src = 'images/mapamundi_oficial.png';
+        caption.textContent = 'Continente de Samiria · Cartografía Oficial';
+        btnOficial.className = 'px-5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md shadow-indigo-600/30 transition';
+        btnBoceto.className = 'px-5 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition';
+      }
+    }
+
+    const i18n = {
+      es: {
+        brand: 'Saga Lázaro',
+        brandSub: 'Universo Literario',
+        navHome: 'Inicio',
+        navBooks: 'Novelas',
+        navPhases: 'Cronología',
+        navMap: 'Mapamundi',
+        navCharacters: 'Personajes',
+        navLore: 'El Mundo',
+        navTrailer: 'Trailer',
+        navAuthors: 'Autores',
+        navCommunity: 'Comunidad',
+        heroBadge: 'Saga Literaria · Fantasía Oscura & Ciencia Ficción',
+        heroTitle: 'Saga Lázaro',
+        heroTagline: 'Dos mundos. Una barrera rota. El despertar de un poder olvidado.',
+        heroDesc: 'La tecnología de Arcanum y la magia de Celestia nunca debieron encontrarse. Adéntrate en una saga donde la realidad se fragmenta y el destino de dos civilizaciones descansa en manos de aquellos que se atreven a desafiar lo imposible.',
+        heroBtnBooks: 'Explorar Novelas',
+        heroBtnTrailer: 'Ver Booktrailer Oficial',
+        secBooksTitle: 'Las Novelas de la Saga',
+        secBooksSub: 'Descubre los libros ya publicados en español e inglés, disponibles en Amazon Kindle, tapa blanda y en la editorial española Adarve.',
+        book1Cover: 'images/cover_es_1.jpg',
+        book2Cover: 'images/cover_es_2.jpg',
+        book1AmzUrl: 'https://www.amazon.es/dp/B0HLSQKMR1',
+        book2AmzUrl: 'https://www.amazon.es/dp/B0HLSTMRWCV',
+        book1Badge: 'Libro 1 · Saga Principal',
+        book1Subbadge: 'Volumen Inicial',
+        book1Title: 'La senda de Lázaro: El choque de dos mundos',
+        book1Authors: 'Por <strong>José Manuel Heredia</strong> y <strong>Elena García</strong>',
+        book1Synopsis: `<p><strong>A un lado de la barrera, la magia controla los elementos. Al otro, la tecnología lo controla todo.</strong></p>
+                        <p>Durante siglos, una frontera invisible mantuvo el continente dividido en dos mundos que ni siquiera sabían de la existencia del otro. En Celestia sobrevivieron las tradiciones elementales, mientras que en Arcanum las corporaciones cambiaron los mitos por trenes magnéticos, fábricas y un control absoluto sobre la población.</p>
+                        <p>Cuando Yui, una chica de pelo blanco vestida con ropas de otra era, aterriza en mitad de Arcanum controlando el viento, el régimen entra en pánico y la encierra para experimentar con ella. Sarah, una estudiante que oculta sus propios dones mentales, y Taos, un joven investigador con una extraña esfera temporal, deciden sacarla de allí en una huida sin retorno.</p>`,
+        btnTextAmazon1: 'Comprar en Amazon (ES)',
+        btnTextAmazon2: 'Comprar en Amazon (ES)',
+        book2Badge: 'Libro 2 · Continuación',
+        book2Subbadge: 'Revelaciones Clave',
+        book2Title: 'El secreto de Lázaro: El despertar de la verdad',
+        book2Authors: 'Por <strong>José Manuel Heredia</strong> y <strong>Elena García</strong>',
+        book2Synopsis: `<p><strong>La frontera ha caído y la paz tiene los días contados.</strong></p>
+                        <p>Sin la Gran Barrera, los diferentes territorios del mundo han quedado al descubierto. En Celestia, la joven e inexperta reina apenas tiene tiempo para respirar mientras las tropas del País del Fuego asedian sus murallas y en su propia corte se prepara una traición.</p>
+                        <p>Para salvar a su gente, mandará a sus amigos en un barco a través del océano prohibido en busca de una alianza con el País del Agua. Pero la diosa Samy tiene sus propios planes y separa sus destinos, mientras Aiden sigue moviendo los hilos en la sombra para desatar el caos definitivo.</p>`,
+        phasesBadge: 'Cronología de la Historia',
+        phasesTitle: 'Las Cuatro Fases de la Saga',
+        phasesSub: 'La trayectoria completa de la saga, desde las novelas publicadas hasta la precuela y el desenlace final.',
+        phase1Title: 'El choque de dos mundos',
+        phase1Desc: 'La barrera ha caído. La tecnología y la magia se enfrentan mientras un grupo de elegidos despierta en un mundo fracturado. La leyenda comienza aquí.',
+        phase1Status: 'Fase I · Primer libro publicado',
+        phase2Title: 'El despertar de la verdad',
+        phase2Desc: 'Nada es lo que parece. El verdadero rostro de Lázaro y el propósito de los elegidos salen a la luz contra el auténtico enemigo.',
+        phase2Status: 'Fase II · Segundo libro publicado',
+        phase3Title: 'El Origen de las Esferas',
+        phase3Desc: 'Antes de la colisión, hubo una chispa. Descubre el pasado oscuro de Lázaro, la ambición de Aiden y el nacimiento de todo hace un siglo.',
+        phase3Status: 'Fase III · Precuela de la Saga',
+        phase4Title: 'El Destino Final',
+        phase4Desc: 'Un futuro aún no escrito. El desenlace que cambiará la historia para siempre permanece oculto en las sombras...',
+        phase4Status: 'Fase IV · Próximo desenlace',
+        mapBadge: 'Geografía del Continente',
+        mapTitle: 'El Mapamundi de Samiria',
+        mapSub: 'Explora la cartografía oficial del continente, sus tres grandes regiones y las ciudades donde transcurre la trama.',
+        charsBadge: 'Dramatis Personae',
+        charsTitle: 'Los Protagonistas y Figuras Clave',
+        charsSub: 'Conoce a los jóvenes elegidos que desafían a dos civilizaciones y a las fuerzas que mueven los hilos del conflicto.',
+        loreBadge: 'El Conflicto Central',
+        loreTitle: 'El Choque de Dos Civilizaciones',
+        loreSub: 'Separados durante siglos por una barrera invisible, ambos lados del continente desarrollaron visiones del mundo completamente opuestas.',
+        trailerBadge: 'Avance Cinemático',
+        trailerTitle: 'Booktrailer de la Saga',
+        trailerSub: 'Sumérgete en la atmósfera, la tensión y los enigmas de La Saga Lázaro a través de su avance cinemático.',
+        authorsBadge: 'Detrás de las Páginas',
+        authorsTitle: 'Sobre los Autores',
+        authorsSub: 'Ingeniería de software, pasión por las historias inmersivas y devoción por la fantasía contemporánea.',
+        authorsRole: 'Autores & Creadores del Universo Lázaro',
+        authorsBio: '<strong>José Manuel Heredia</strong> (Málaga, 1986), ingeniero de software y desarrollador independiente de videojuegos bajo el seudónimo de Taos, ideó el universo de Lázaro tras años explorando la narrativa y el diseño de mundos interactivos. Junto a <strong>Elena García</strong>, ingeniera de software y coautora, forjaron una ambientación donde la magia elemental y la tecnología industrial colisionan, dando lugar a una mitología compartida que une novelas y videojuegos.',
+        communityTitle: 'Únete a la Comunidad',
+        communitySub: 'Canales oficiales para seguir las novedades, comentar la historia y contactar directamente.',
+        footerCopy: 'COPYRIGHT © 2026 SAGA LÁZARO. TODOS LOS DERECHOS RESERVADOS.',
+        footerTop: 'Volver arriba'
+      },
+      en: {
+        brand: 'The Lazarus Saga',
+        brandSub: 'Literary Universe',
+        navHome: 'Home',
+        navBooks: 'Novels',
+        navPhases: 'Chronology',
+        navMap: 'World Map',
+        navCharacters: 'Characters',
+        navLore: 'The World',
+        navTrailer: 'Trailer',
+        navAuthors: 'Authors',
+        navCommunity: 'Community',
+        heroBadge: 'Epic Book Series · Dark Fantasy & Science Fiction',
+        heroTitle: 'The Lazarus Saga',
+        heroTagline: 'Two worlds. A shattered barrier. The awakening of a forgotten power.',
+        heroDesc: 'The technology of Arcanum and the magic of Celestia were never meant to meet. Step into a saga where reality fractures and the fate of two civilizations rests in the hands of those who dare defy the impossible.',
+        heroBtnBooks: 'Explore Novels',
+        heroBtnTrailer: 'Watch Official Trailer',
+        secBooksTitle: 'Novels in the Saga',
+        secBooksSub: 'Discover the published installments in English and Spanish, available worldwide on Amazon Kindle & Paperback.',
+        book1Cover: 'images/cover_en_1.jpg',
+        book2Cover: 'images/cover_en_2.jpg',
+        book1AmzUrl: 'https://www.amazon.es/dp/B0HMFQVSF2',
+        book2AmzUrl: 'https://www.amazon.es/dp/B0HMF7GWZD',
+        book1Badge: 'Book 1 · Main Series',
+        book1Subbadge: 'First Installment',
+        book1Title: 'The Path of Lazarus: The Collision of Two Worlds',
+        book1Authors: 'By <strong>José Manuel Heredia</strong> and <strong>Elena García</strong>',
+        book1Synopsis: `<p><strong>On one side of the barrier, magic bends the elements. On the other, technology commands everything.</strong></p>
+                        <p>For centuries, an unseen frontier divided the continent into two civilizations oblivious to each other’s existence. In Celestia, elemental traditions endured, while in Arcanum corporations traded myth for maglev trains, mega-factories, and absolute surveillance.</p>
+                        <p>Until the barrier breaks. When Yui, a wind-controlling girl from another age, crash-lands into Arcanum, the regime panics and cages her for experimental extraction. Sarah, a student hiding mental gifts, and Taos, a young researcher wielding a time-bending sphere, risk everything to break her out.</p>`,
+        btnTextAmazon1: 'Buy on Amazon (EN)',
+        btnTextAmazon2: 'Buy on Amazon (EN)',
+        book2Badge: 'Book 2 · Sequel',
+        book2Subbadge: 'Crucial Revelations',
+        book2Title: 'The Secret of Lazarus: The Awakening of Truth',
+        book2Authors: 'By <strong>José Manuel Heredia</strong> and <strong>Elena García</strong>',
+        book2Synopsis: `<p><strong>The barrier has fallen, and peace is running out of time.</strong></p>
+                        <p>With the frontier collapsed, the world’s domains lie exposed. In Celestia, the young queen faces an imminent siege from the Fire Nation while treason brews within her own court.</p>
+                        <p>To rescue her people, she dispatches her comrades across the forbidden sea to forge an alliance with the Water Realm. Yet goddess Samy weaves her own plans, while Aiden pulls the strings in the shadows to trigger absolute warfare.</p>`,
+        phasesBadge: 'Historical Chronology',
+        phasesTitle: 'The Four Phases of the Saga',
+        phasesSub: 'The complete storyline progression, from published novels to the prequel and upcoming conclusion.',
+        phase1Title: 'The Collision of Two Worlds',
+        phase1Desc: 'The barrier falls. Technology and elemental sorcery clash as chosen individuals awaken in a fractured universe.',
+        phase1Status: 'Phase I · First Published Book',
+        phase2Title: 'The Awakening of Truth',
+        phase2Desc: 'Nothing is as it seems. The real identity of Lazarus and the true purpose of the chosen emerge against the genuine threat.',
+        phase2Status: 'Phase II · Second Published Book',
+        phase3Title: 'The Origin of the Spheres',
+        phase3Desc: 'Before the collision, there was a spark. Uncover the dark past of Lazarus, Aiden’s ambition, and the genesis of the spheres.',
+        phase3Status: 'Phase III · Prequel Novel',
+        phase4Title: 'The Final Destiny',
+        phase4Desc: 'A future yet unwritten. The ultimate climax destined to reshape history forever remains veiled in mystery...',
+        phase4Status: 'Phase IV · Upcoming Finale',
+        mapBadge: 'Continental Cartography',
+        mapTitle: 'The World Map of Samiria',
+        mapSub: 'Explore the official map of the continent, its three primary regions, and key locations throughout the saga.',
+        charsBadge: 'Dramatis Personae',
+        charsTitle: 'Protagonists and Key Figures',
+        charsSub: 'Meet the chosen youths defying two opposing worlds, alongside the forces guiding the unfolding war.',
+        loreBadge: 'Central Conflict',
+        loreTitle: 'The Clash of Opposing Civilizations',
+        loreSub: 'Separated for centuries by an invisible veil, both sides developed diametrically opposed societies.',
+        trailerBadge: 'Official Media',
+        trailerTitle: 'Official Booktrailer',
+        trailerSub: 'Immerse yourself into the tension, atmosphere, and mystery of The Lazarus Saga through its cinematic preview.',
+        authorsBadge: 'Behind the Story',
+        authorsTitle: 'About the Authors',
+        authorsSub: 'Software engineering, worldbuilding devotion, and dark fantasy storytelling.',
+        authorsRole: 'Creators & Authors of The Lazarus Universe',
+        authorsBio: '<strong>José Manuel Heredia</strong> (born 1986 in Málaga, Spain), software engineer and indie game developer under the moniker Taos, conceived The Lazarus Saga after over a decade blending interactive storytelling and epic fantasy. Together with <strong>Elena García</strong>, software engineer and co-author, they crafted a universe where elemental magic meets industrial high-tech.',
+        communityTitle: 'Join the Community',
+        communitySub: 'Official channels to follow updates, discuss lore theories, and connect directly.',
+        footerCopy: 'COPYRIGHT © 2026 THE LAZARUS SAGA. ALL RIGHTS RESERVED.',
+        footerTop: 'Back to top'
+      },
+      jp: {
+        brand: '『ラザロ・サーガ』',
+        brandSub: '公式文学ポータル',
+        navHome: 'ホーム',
+        navBooks: '小説一覧',
+        navPhases: '年代記',
+        navMap: '世界地図',
+        navCharacters: '登場人物',
+        navLore: '世界観',
+        navTrailer: '予告編',
+        navAuthors: '著者紹介',
+        navCommunity: 'コミュニティ',
+        heroBadge: '壮大なるダークファンタジー＆SFサーガ',
+        heroTitle: '『ラザロ・サーガ』',
+        heroTagline: '二つの世界。崩れ去った結界。目覚めし太古の力。',
+        heroDesc: 'アルカナムの高度な科学技術と、セレスティアの伝統的なエレメンタル魔法。決して交わるはずのなかった二つの文明が、結界の崩壊によって激突する。不可能な運命に立ち向かう若者たちの壮大な冒険へようこそ。',
+        heroBtnBooks: '小説を見る',
+        heroBtnTrailer: '公式PVを再生',
+        secBooksTitle: '刊行された小説',
+        secBooksSub: '現在刊行中の『ラザロ・サーガ』シリーズ。Amazon Kindleおよびペーパーバックにて世界中から購入可能です。',
+        book1Cover: 'images/cover_en_1.jpg',
+        book2Cover: 'images/cover_en_2.jpg',
+        book1AmzUrl: 'https://www.amazon.es/dp/B0HMFQVSF2',
+        book2AmzUrl: 'https://www.amazon.es/dp/B0HMF7GWZD',
+        book1Badge: '第1巻 · 本編開幕',
+        book1Subbadge: '始まりの物語',
+        book1Title: 'ラザロの道：二つの世界の衝突',
+        book1Authors: '著：<strong>ホセ・マヌエル・エレディア</strong> ＆ <strong>エレナ・ガルシア</strong>',
+        book1Synopsis: `<p><strong>結界の片側では魔法が元素を操り、もう片側では科学技術がすべてを支配していた。</strong></p>
+                        <p>何世紀もの間、不可視の境界線によって大陸は二つに分断され、互いの存在すら知らずにいた。セレスティアには古代のエレメンタル魔法が残り、アルカナムでは巨大企業が神話を磁気浮上鉄道や厳重な監視社会へと置き換えた。</p>
+                        <p>しかし結界が破られた瞬間、風を操る白髪の少女ユイがアルカナムへ漂着する。体制側は彼女を危険人物として捕らえ、実験対象とする。精神の力を隠し持つ学生サラと、時を操る謎の宝珠を持つ若き研究者タオスは、彼女を救い出すべく絶望的な逃亡劇へと身を投じる。</p>`,
+        btnTextAmazon1: 'Amazonで見る (Global)',
+        btnTextAmazon2: 'Amazonで見る (Global)',
+        book2Badge: '第2巻 · 続編',
+        book2Subbadge: '真実の開示',
+        book2Title: 'ラザロの秘密：真実の覚醒',
+        book2Authors: '著：<strong>ホセ・マヌエル・エレディア</strong> ＆ <strong>エレナ・ガルシア</strong>',
+        book2Synopsis: `<p><strong>境界は失われ、平和の残された時間は刻一刻と迫る。</strong></p>
+                        <p>大結界が崩壊したことで、大陸の全領域が白日の下に晒された。セレスティアでは、火の国の軍勢が城壁に迫る中、宮廷内でも裏切りの陰謀が渦巻く。</p>
+                        <p>民を救うため、若き女王は禁じられた大海を渡り、水の国との同盟を求めて仲間たちを派遣する。しかし女神サミーの思惑と、暗躍する黒幕エイデンの策略により、彼らの運命は引き裂かれていく。</p>`,
+        phasesBadge: '年代記と歴史',
+        phasesTitle: 'サーガの四つの段階',
+        phasesSub: '刊行済みの小説から前日譚、そして未完の結末までの歩み。',
+        phase1Title: '二つの世界の衝突',
+        phase1Desc: '結界が落ち、科学と魔法が激突。分断された世界で選ばれし者たちが目覚め、伝説が始まる。',
+        phase1Status: 'フェーズI · 第1巻（刊行済み）',
+        phase2Title: '真実の覚醒',
+        phase2Desc: '真の敵は誰なのか。ラザロの真実の姿と、選ばれし者たちの使命が明かされる。',
+        phase2Status: 'フェーズII · 第2巻（刊行済み）',
+        phase3Title: 'オーブの起源',
+        phase3Desc: '衝突の前、一筋の火花があった。ラザロの暗き過去、エイデンの野望、そして全ての始まりを解き明かす。',
+        phase3Status: 'フェーズIII · 前日譚小説',
+        phase4Title: '最終決戦・終末の運命',
+        phase4Desc: '未だ記されぬ未来。歴史を永遠に変える結末は、静かに闇の中で待っている...',
+        phase4Status: 'フェーズIV · 完結編（執筆中）',
+        mapBadge: '大陸の地図',
+        mapTitle: 'サミリア世界地図',
+        mapSub: 'サミリア大陸の公式地図。三つの主要地域と、物語の舞台となる都市を紹介。',
+        charsBadge: '登場人物',
+        charsTitle: '主人公と主要人物たち',
+        charsSub: '二つの文明の運命を背負う若き主人公たちと、影で暗躍する重要人物。',
+        loreBadge: '勢力と世界観',
+        loreTitle: '二つの対立する文明',
+        loreSub: '数世紀にわたり不可視の結界で隔絶され、全く異なる道を歩んだ二大勢力。',
+        trailerBadge: '公式プロモーション',
+        trailerTitle: '公式ブックトレーラー',
+        trailerSub: 'シネマティック映像で体感する『ラザロ・サーガ』の緊迫した世界観。',
+        authorsBadge: '著者について',
+        authorsTitle: '著者紹介',
+        authorsSub: 'ソフトウェアエンジニアリングと物語への情熱が生み出した世界。',
+        authorsRole: 'ラザロ・ユニバースの原作者',
+        authorsBio: '<strong>ホセ・マヌエル・エレディア</strong>（1986年スペイン・マラガ生まれ）。Taos名義で活動するソフトウェアエンジニア兼インディーゲーム開発者。10年以上に及ぶゲーム開発と物語創作を経て本作を執筆。共同著者<strong>エレナ・ガルシア</strong>と共に、魔法と科学が交差する緻密な世界観を構築。',
+        communityTitle: 'コミュニティに参加',
+        communitySub: '最新情報や考察、公式アナウンスをお届けする公式チャンネル。',
+        footerCopy: 'COPYRIGHT © 2026 THE LAZARUS SAGA. ALL RIGHTS RESERVED.',
+        footerTop: 'トップへ戻る'
+      }
+    };
+
+    let currentLang = 'es';
+
+    function setLang(lang) {
+      if (!i18n[lang]) return;
+      currentLang = lang;
+
+      ['es', 'en', 'jp'].forEach(l => {
+        const btn = document.getElementById(`btn-lang-${l}`);
+        if (l === lang) {
+          btn.className = 'px-2.5 py-1.5 rounded-lg transition bg-amber-500 text-slate-950 font-bold shadow-sm';
+        } else {
+          btn.className = 'px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition font-medium';
+        }
+      });
+
+      const d = i18n[lang];
+
+      document.getElementById('nav-brand').textContent = d.brand;
+      document.getElementById('nav-brand-sub').textContent = d.brandSub;
+      document.getElementById('nav-home').textContent = d.navHome;
+      document.getElementById('nav-books').textContent = d.navBooks;
+      document.getElementById('nav-phases').textContent = d.navPhases;
+      document.getElementById('nav-map').textContent = d.navMap;
+      document.getElementById('nav-characters').textContent = d.navCharacters;
+      document.getElementById('nav-lore').textContent = d.navLore;
+      document.getElementById('nav-trailer').textContent = d.navTrailer;
+      document.getElementById('nav-authors').textContent = d.navAuthors;
+      document.getElementById('nav-community').textContent = d.navCommunity;
+
+      document.getElementById('m-nav-home').textContent = d.navHome;
+      document.getElementById('m-nav-books').textContent = d.navBooks;
+      document.getElementById('m-nav-phases').textContent = d.navPhases;
+      document.getElementById('m-nav-map').textContent = d.navMap;
+      document.getElementById('m-nav-characters').textContent = d.navCharacters;
+      document.getElementById('m-nav-lore').textContent = d.navLore;
+      document.getElementById('m-nav-trailer').textContent = d.navTrailer;
+      document.getElementById('m-nav-authors').textContent = d.navAuthors;
+      document.getElementById('m-nav-community').textContent = d.navCommunity;
+
+      document.getElementById('hero-badge').textContent = d.heroBadge;
+      document.getElementById('hero-title').textContent = d.heroTitle;
+      document.getElementById('hero-tagline').textContent = d.heroTagline;
+      document.getElementById('hero-desc').textContent = d.heroDesc;
+      document.getElementById('hero-btn-books').querySelector('span').textContent = d.heroBtnBooks;
+      document.getElementById('hero-btn-trailer').querySelector('span').textContent = d.heroBtnTrailer;
+
+      document.getElementById('sec-books-title').textContent = d.secBooksTitle;
+      document.getElementById('sec-books-sub').textContent = d.secBooksSub;
+
+      document.getElementById('book-1-cover').src = d.book1Cover;
+      document.getElementById('book-1-amazon-btn').href = d.book1AmzUrl;
+      document.getElementById('book-1-badge').textContent = d.book1Badge;
+      document.getElementById('book-1-subbadge').innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ${d.book1Subbadge}`;
+      document.getElementById('book-1-title').textContent = d.book1Title;
+      document.getElementById('book-1-authors').innerHTML = d.book1Authors;
+      document.getElementById('book-1-synopsis').innerHTML = d.book1Synopsis;
+      document.getElementById('btn-text-amazon-1').textContent = d.btnTextAmazon1;
+
+      document.getElementById('book-2-cover').src = d.book2Cover;
+      document.getElementById('book-2-amazon-btn').href = d.book2AmzUrl;
+      document.getElementById('book-2-badge').textContent = d.book2Badge;
+      document.getElementById('book-2-subbadge').innerHTML = `<i data-lucide="flame" class="w-3.5 h-3.5"></i> ${d.book2Subbadge}`;
+      document.getElementById('book-2-title').textContent = d.book2Title;
+      document.getElementById('book-2-authors').innerHTML = d.book2Authors;
+      document.getElementById('book-2-synopsis').innerHTML = d.book2Synopsis;
+      document.getElementById('btn-text-amazon-2').textContent = d.btnTextAmazon2;
+
+      document.getElementById('phases-badge').textContent = d.phasesBadge;
+      document.getElementById('phases-title').textContent = d.phasesTitle;
+      document.getElementById('phases-sub').textContent = d.phasesSub;
+      document.getElementById('phase-1-title').textContent = d.phase1Title;
+      document.getElementById('phase-1-desc').textContent = d.phase1Desc;
+      document.getElementById('phase-1-status').textContent = d.phase1Status;
+      document.getElementById('phase-2-title').textContent = d.phase2Title;
+      document.getElementById('phase-2-desc').textContent = d.phase2Desc;
+      document.getElementById('phase-2-status').textContent = d.phase2Status;
+      document.getElementById('phase-3-title').textContent = d.phase3Title;
+      document.getElementById('phase-3-desc').textContent = d.phase3Desc;
+      document.getElementById('phase-3-status').textContent = d.phase3Status;
+      document.getElementById('phase-4-title').textContent = d.phase4Title;
+      document.getElementById('phase-4-desc').textContent = d.phase4Desc;
+      document.getElementById('phase-4-status').textContent = d.phase4Status;
+
+      document.getElementById('map-badge').textContent = d.mapBadge;
+      document.getElementById('map-title').textContent = d.mapTitle;
+      document.getElementById('map-sub').textContent = d.mapSub;
+
+      document.getElementById('chars-badge').textContent = d.charsBadge;
+      document.getElementById('chars-title').textContent = d.charsTitle;
+      document.getElementById('chars-sub').textContent = d.charsSub;
+
+      document.getElementById('lore-badge').textContent = d.loreBadge;
+      document.getElementById('lore-title').textContent = d.loreTitle;
+      document.getElementById('lore-sub').textContent = d.loreSub;
+
+      document.getElementById('trailer-badge').textContent = d.trailerBadge;
+      document.getElementById('trailer-title').textContent = d.trailerTitle;
+      document.getElementById('trailer-sub').textContent = d.trailerSub;
+
+      document.getElementById('authors-badge').textContent = d.authorsBadge;
+      document.getElementById('authors-title').textContent = d.authorsTitle;
+      document.getElementById('authors-sub').textContent = d.authorsSub;
+      document.getElementById('authors-role').textContent = d.authorsRole;
+      document.getElementById('authors-bio').innerHTML = d.authorsBio;
+
+      document.getElementById('community-title').textContent = d.communityTitle;
+      document.getElementById('community-sub').textContent = d.communitySub;
+
+      document.getElementById('footer-copy').innerHTML = d.footerCopy;
+      document.getElementById('footer-top').textContent = d.footerTop;
+
+      lucide.createIcons();
+    }
+
+    (function initEtherCanvas() {
+      const canvas = document.getElementById('ether-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let width, height;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const colors = [
+        'rgba(245, 158, 11, 0.45)',
+        'rgba(99, 102, 241, 0.4)',
+        'rgba(6, 182, 212, 0.45)',
+        'rgba(168, 85, 247, 0.35)'
+      ];
+
+      const count = Math.min(Math.floor(width / 24), 55);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2 + 0.6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 115) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(245, 158, 11, ${0.12 * (1 - dist / 115)})`;
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlLang = new URLSearchParams(window.location.search).get('lang');
+      if (urlLang && i18n[urlLang]) {
+        setLang(urlLang);
+      } else {
+        setLang('es');
+      }
+    });
+  </script>
+</body>
+</html>
