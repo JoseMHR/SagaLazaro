@@ -768,24 +768,40 @@
         </p>
       </div>
 
-      <div class="max-w-4xl mx-auto rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl glow-cyan p-2 sm:p-4">
-        <div id="trailer-container" class="relative w-full overflow-hidden rounded-2xl bg-slate-950 flex items-center justify-center cursor-pointer group" style="padding-top: 56.25%;" onclick="playTrailer()">
-          <img src="images/trailer_thumbnail.jpg" alt="Trailer Thumbnail" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-          
-          <div class="absolute inset-0 flex flex-col items-center justify-center gap-3">
-            <div class="w-20 h-20 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-xl shadow-red-600/50 group-hover:scale-110 group-hover:bg-red-500 transition duration-300">
-              <i data-lucide="play" class="w-9 h-9 fill-current ml-1"></i>
-            </div>
-            <span class="text-xs font-bold tracking-widest text-slate-200 uppercase bg-slate-950/70 px-3 py-1 rounded-full border border-slate-700/60 backdrop-blur-md">
-              Reproducir Booktrailer (YouTube)
-            </span>
-          </div>
+      <div class="max-w-4xl mx-auto rounded-3xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl glow-cyan p-3 sm:p-5">
+        <!-- Language Selector for Trailer -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-5">
+          <button id="btn-trailer-es" onclick="switchTrailer('es')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-red-600 text-white shadow-lg shadow-red-600/30 transition flex items-center gap-2">
+            <span id="label-trailer-es">🇪🇸 Tráiler en Español (V.O.)</span>
+          </button>
+          <button id="btn-trailer-en" onclick="switchTrailer('en')" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-2">
+            <span id="label-trailer-en">🇬🇧 Trailer in English</span>
+          </button>
         </div>
-        <div class="mt-3 text-center">
-          <a href="https://www.youtube.com/watch?v=J-JiVOMRYLo" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-red-400 transition inline-flex items-center gap-1">
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Abrir directamente en YouTube
+
+        <!-- Video Player Frame -->
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-slate-800 shadow-2xl">
+          <iframe
+            id="trailer-iframe"
+            class="w-full h-full"
+            src="https://www.youtube.com/embed/J-JiVOMRYLo?rel=0"
+            title="Booktrailer Oficial — La Saga Lázaro (Español)"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="mt-4 flex flex-col items-center justify-center gap-2 text-center">
+          <a id="trailer-external-link" href="https://www.youtube.com/watch?v=J-JiVOMRYLo" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-800/90 hover:bg-red-600 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold transition border border-slate-700 shadow-md group">
+            <i data-lucide="youtube" class="w-4 h-4 text-red-500 group-hover:text-white transition"></i>
+            <span id="trailer-external-text">Abrir en YouTube (Pantalla Completa)</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-70"></i>
           </a>
+          <p id="trailer-note" class="text-xs text-slate-500 max-w-lg">
+            Si tu navegador o extensiones restringen vídeos incrustados (por ejemplo en local con file://), puedes reproducirlo directamente en YouTube.
+          </p>
         </div>
       </div>
     </section>
@@ -916,11 +932,46 @@
       menu.classList.toggle('hidden');
     }
 
-    function playTrailer() {
-      const container = document.getElementById('trailer-container');
-      container.onclick = null;
-      container.className = 'relative w-full overflow-hidden rounded-2xl bg-black';
-      container.innerHTML = '<iframe class="absolute inset-0 w-full h-full rounded-2xl" src="https://www.youtube-nocookie.com/embed/J-JiVOMRYLo?autoplay=1&rel=0" title="Booktrailer Oficial Saga Lázaro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    const trailers = {
+      es: {
+        id: 'J-JiVOMRYLo',
+        title: 'Booktrailer Oficial — La Saga Lázaro (Español)',
+        url: 'https://www.youtube.com/watch?v=J-JiVOMRYLo'
+      },
+      en: {
+        id: 'OCZ2cjSN_Q0',
+        title: 'Official Book Trailer — The Lazarus Saga (English)',
+        url: 'https://www.youtube.com/watch?v=OCZ2cjSN_Q0'
+      }
+    };
+
+    let currentTrailerLang = 'es';
+
+    function switchTrailer(lang) {
+      currentTrailerLang = lang;
+      const data = trailers[lang] || trailers.es;
+      const iframe = document.getElementById('trailer-iframe');
+      const extLink = document.getElementById('trailer-external-link');
+      const btnEs = document.getElementById('btn-trailer-es');
+      const btnEn = document.getElementById('btn-trailer-en');
+
+      if (iframe && !iframe.src.includes(data.id)) {
+        iframe.src = `https://www.youtube.com/embed/${data.id}?rel=0`;
+        iframe.title = data.title;
+      }
+      if (extLink) {
+        extLink.href = data.url;
+      }
+
+      if (btnEs && btnEn) {
+        if (lang === 'en') {
+          btnEn.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-red-600 text-white shadow-lg shadow-red-600/30 transition flex items-center gap-2';
+          btnEs.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-2';
+        } else {
+          btnEs.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-red-600 text-white shadow-lg shadow-red-600/30 transition flex items-center gap-2';
+          btnEn.className = 'px-5 py-2.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center gap-2';
+        }
+      }
     }
 
     function switchMap(type) {
@@ -1010,6 +1061,10 @@
         trailerBadge: 'Avance Cinemático',
         trailerTitle: 'Booktrailer de la Saga',
         trailerSub: 'Sumérgete en la atmósfera, la tensión y los enigmas de La Saga Lázaro a través de su avance cinemático.',
+        trailerLabelEs: '🇪🇸 Tráiler en Español (V.O.)',
+        trailerLabelEn: '🇬🇧 Trailer in English',
+        trailerExternalText: 'Abrir en YouTube (Pantalla Completa)',
+        trailerNote: 'Si tu navegador o extensiones restringen vídeos incrustados (por ejemplo en local con file://), puedes reproducirlo directamente en YouTube.',
         authorsBadge: 'Detrás de las Páginas',
         authorsTitle: 'Sobre los Autores',
         authorsSub: 'Ingeniería de software, pasión por las historias inmersivas y devoción por la fantasía contemporánea.',
@@ -1087,6 +1142,10 @@
         trailerBadge: 'Official Media',
         trailerTitle: 'Official Booktrailer',
         trailerSub: 'Immerse yourself into the tension, atmosphere, and mystery of The Lazarus Saga through its cinematic preview.',
+        trailerLabelEs: '🇪🇸 Spanish Version (V.O.)',
+        trailerLabelEn: '🇬🇧 English Version',
+        trailerExternalText: 'Open in YouTube (Full Screen)',
+        trailerNote: 'If your browser or privacy extensions block embedded videos (such as opening via local file://), you can watch it directly on YouTube.',
         authorsBadge: 'Behind the Story',
         authorsTitle: 'About the Authors',
         authorsSub: 'Software engineering, worldbuilding devotion, and dark fantasy storytelling.',
@@ -1164,6 +1223,10 @@
         trailerBadge: '公式プロモーション',
         trailerTitle: '公式ブックトレーラー',
         trailerSub: 'シネマティック映像で体感する『ラザロ・サーガ』の緊迫した世界観。',
+        trailerLabelEs: '🇪🇸 スペイン語版 (V.O.)',
+        trailerLabelEn: '🇬🇧 英語版',
+        trailerExternalText: 'YouTubeで開く（全画面表示）',
+        trailerNote: 'ブラウザや拡張機能により動画の埋め込みがブロックされる場合は、YouTubeで直接ご視聴いただけます。',
         authorsBadge: '著者について',
         authorsTitle: '著者紹介',
         authorsSub: 'ソフトウェアエンジニアリングと物語への情熱が生み出した世界。',
@@ -1274,6 +1337,16 @@
       document.getElementById('trailer-badge').textContent = d.trailerBadge;
       document.getElementById('trailer-title').textContent = d.trailerTitle;
       document.getElementById('trailer-sub').textContent = d.trailerSub;
+      document.getElementById('label-trailer-es').textContent = d.trailerLabelEs;
+      document.getElementById('label-trailer-en').textContent = d.trailerLabelEn;
+      document.getElementById('trailer-external-text').textContent = d.trailerExternalText;
+      document.getElementById('trailer-note').textContent = d.trailerNote;
+
+      if (lang === 'es') {
+        switchTrailer('es');
+      } else {
+        switchTrailer('en');
+      }
 
       document.getElementById('authors-badge').textContent = d.authorsBadge;
       document.getElementById('authors-title').textContent = d.authorsTitle;

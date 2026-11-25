@@ -79,12 +79,12 @@
 
 La saga se estructura en un ciclo de cuatro etapas que exploran el pasado, el presente y la resolución final del universo:
 
-| Fase | Título | Estado | Enfoque Narrativo |
-| :---: | :--- | :---: | :--- |
-| **I** | **El Choque de dos Mundos** | 🟢 **Publicado** | *Primer libro de la saga.* Caída de la barrera y primer contacto entre tecnología y magia. |
-| **II** | **El Despertar de la Verdad** | 🟢 **Publicado** | *Segundo libro de la saga.* Revelación del misterio de Lázaro y enfrentamiento contra la verdadera amenaza. |
-| **III** | **El Origen de las Esferas** | 📜 *Precuela* | *Orígenes y Lore.* Los acontecimientos ocurridos un siglo antes, la ambición de Aiden y la génesis de las esferas. |
-| **IV** | **El Destino Final** | 🔮 *En Desarrollo* | *Desenlace definitivo.* La batalla final por el equilibrio de ambos mundos. |
+|  Fase   | Título                        |      Estado       | Enfoque Narrativo                                                                                                  |
+| :-----: | :---------------------------- | :---------------: | :----------------------------------------------------------------------------------------------------------------- |
+|  **I**  | **El Choque de dos Mundos**   |  🟢 **Publicado**  | *Primer libro de la saga.* Caída de la barrera y primer contacto entre tecnología y magia.                         |
+| **II**  | **El Despertar de la Verdad** |  🟢 **Publicado**  | *Segundo libro de la saga.* Revelación del misterio de Lázaro y enfrentamiento contra la verdadera amenaza.        |
+| **III** | **El Origen de las Esferas**  |   📜 *Precuela*    | *Orígenes y Lore.* Los acontecimientos ocurridos un siglo antes, la ambición de Aiden y la génesis de las esferas. |
+| **IV**  | **El Destino Final**          | 🔮 *En Desarrollo* | *Desenlace definitivo.* La batalla final por el equilibrio de ambos mundos.                                        |
 
 ---
 
@@ -109,12 +109,12 @@ La saga se estructura en un ciclo de cuatro etapas que exploran el pasado, el pr
 
 ## 👥 Protagonistas
 
-| Personaje | Edad / Origen | Don / Especialidad | Rol en la Trama |
-| :--- | :---: | :--- | :--- |
-| **Sarah** | 19 años · *Luminar* | Dones de percepción mental e intuición anticipada | Eje reflexivo del grupo, capaz de vislumbrar ramificaciones del destino antes de que ocurran. |
-| **Taos** | 20 años · *Arcanum* | Erudición arqueológica y control de la esfera temporal | Investigador del Enclave obsesionado con descifrar los vestigios antiguos y los secretos del tiempo. |
-| **Yui** | 16 años · *Celestia* | Dominio elemental del viento y agilidad aérea | Joven prodigio de la magia elemental, hija de Helene y puente vivo entre los reinos. |
-| **Jack** | 24 años · *Celestia* | Esgrima de élite y táctica de combate | Protector leal juramentado ante la Corte Real, escudo defensivo inquebrantable del grupo. |
+| Personaje |    Edad / Origen     | Don / Especialidad                                     | Rol en la Trama                                                                                      |
+| :-------- | :------------------: | :----------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| **Sarah** | 19 años · *Luminar*  | Dones de percepción mental e intuición anticipada      | Eje reflexivo del grupo, capaz de vislumbrar ramificaciones del destino antes de que ocurran.        |
+| **Taos**  | 20 años · *Arcanum*  | Erudición arqueológica y control de la esfera temporal | Investigador del Enclave obsesionado con descifrar los vestigios antiguos y los secretos del tiempo. |
+| **Yui**   | 16 años · *Celestia* | Dominio elemental del viento y agilidad aérea          | Joven prodigio de la magia elemental, hija de Helene y puente vivo entre los reinos.                 |
+| **Jack**  | 24 años · *Celestia* | Esgrima de élite y táctica de combate                  | Protector leal juramentado ante la Corte Real, escudo defensivo inquebrantable del grupo.            |
 
 > **Otras Facciones Clave:**
 > * **Figuras Místicas:** *Lázaro* (figura legendaria cuyo secreto sacude ambos mundos), *Samy* y la *Pequeña Criatura*.
@@ -130,7 +130,9 @@ El portal web alojado en este repositorio ofrece una experiencia inmersiva cinem
 * 🌍 **Multilingüe Reactivo (ES / EN / JP):** Cambio instantáneo de idioma sin recarga, sincronizando sinopsis, portadas de libros y enlaces regionales de compra.
 * 🗺️ **Visor Cartográfico Interactivo:** Conmutación fluida entre el mapa final renderizado y el boceto original histórico de Samiria.
 * ✨ **Atmósfera Cinematográfica:** Efecto de niebla de éter animado en HTML5 Canvas con partículas interconectadas.
-* 🎬 **Booktrailer Integrado:** Reproducción directa del tráiler oficial en alta definición.
+* 🎬 **Booktrailer Cinemático Dual:** Selector y reproductor para ambas ediciones:
+  * 🇪🇸 **[Booktrailer Oficial en Español (V.O.)](https://www.youtube.com/watch?v=J-JiVOMRYLo)**
+  * 🇬🇧 **[Official Book Trailer in English](https://www.youtube.com/watch?v=OCZ2cjSN_Q0)**
 * 🎮 **Vínculo Transmedia:** Conexión con el proyecto RPG complementario *Echoes of Truth* y el motor *Taos Game Maker*.
 
 👉 **Visita la web en vivo:** [https://josemhr.github.io/SagaLazaro/](https://josemhr.github.io/SagaLazaro/)
