@@ -1,9 +1,5 @@
 <div align="center">
 
-  <img src="images/hero_artwork_crop.jpg" alt="Saga Lázaro Banner" width="100%" style="border-radius: 12px; max-width: 900px;" />
-
-  <br/><br/>
-
   # ✦ SAGA LÁZARO ✦
   ### *The Lazarus Saga · ラザロ・サーガ*
 
