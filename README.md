@@ -14,7 +14,6 @@
   [![Web Oficial](https://img.shields.io/badge/Web_Oficial-josemhr.github.io%2FSagaLazaro-f59e0b?style=for-the-badge&logo=googlechrome&logoColor=white)](https://josemhr.github.io/SagaLazaro/)
   [![Idiomas](https://img.shields.io/badge/Idiomas-ES_%7C_EN_%7C_JP-blue?style=for-the-badge)](https://josemhr.github.io/SagaLazaro/)
   [![Amazon](https://img.shields.io/badge/Amazon-Disponible_en_Kindle_y_Papel-232f3e?style=for-the-badge&logo=amazon&logoColor=white)](https://www.amazon.es/dp/B0HLSQKMR1)
-  [![Editorial](https://img.shields.io/badge/Editorial-Adarve-8b5cf6?style=for-the-badge)](https://editorialadarve.com/)
 
   <br/>
 
@@ -147,7 +146,7 @@ El portal web alojado en este repositorio ofrece una experiencia inmersiva cinem
 
 *Creadores, escritores y desarrolladores del universo Saga Lázaro.*
 
-[💼 Portfolio José Manuel](https://josemhr.github.io/JoseMHR/) • [🌐 Elena García](https://elenagssg.github.io/ElenaGSSG/) • [📚 Editorial Adarve](https://editorialadarve.com/)
+[💼 Portfolio José Manuel](https://josemhr.github.io/JoseMHR/) • [🌐 Elena García](https://elenagssg.github.io/ElenaGSSG/)
 
 </div>
 
@@ -162,6 +161,13 @@ El portal web alojado en este repositorio ofrece una experiencia inmersiva cinem
 [![Twitter/X](https://img.shields.io/badge/X-@SagaLazaro-000000?style=for-the-badge&logo=x&logoColor=white)](https://twitter.com/sagalazaro)
 &nbsp;
 [![Discord](https://img.shields.io/badge/Discord-Comunidad-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/sagalazaro)
+
+<br/><br/>
+
+---
+
+## 🌐 Web Publicada Oficial
+👉 **[https://josemhr.github.io/SagaLazaro/](https://josemhr.github.io/SagaLazaro/)**
 
 <br/>
 
