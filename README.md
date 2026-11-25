@@ -146,7 +146,7 @@ El portal web alojado en este repositorio ofrece una experiencia inmersiva cinem
 
 *Creadores, escritores y desarrolladores del universo Saga Lázaro.*
 
-[💼 Portfolio José Manuel](https://josemhr.github.io/JoseMHR/) • [🌐 Elena García](https://elenagssg.github.io/ElenaGSSG/)
+[💼 Portfolio José Manuel](https://josemhr.github.io/JoseMHR/) • [🐙 GitHub de Elena](https://github.com/ElenaGSSG)
 
 </div>
 
@@ -156,11 +156,9 @@ El portal web alojado en este repositorio ofrece una experiencia inmersiva cinem
 
 ### 💬 Comunidad y Contacto
 
-[![Telegram](https://img.shields.io/badge/Telegram-Canal_Oficial-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/sagalazaro)
+[![Telegram](https://img.shields.io/badge/Telegram-Canal_Oficial-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/taosworld)
 &nbsp;
-[![Twitter/X](https://img.shields.io/badge/X-@SagaLazaro-000000?style=for-the-badge&logo=x&logoColor=white)](https://twitter.com/sagalazaro)
-&nbsp;
-[![Discord](https://img.shields.io/badge/Discord-Comunidad-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/sagalazaro)
+[![Email](https://img.shields.io/badge/Email-Contacto_Directo-ea4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jose.manuel.reyes.1986@gmail.com)
 
 <br/><br/>
 

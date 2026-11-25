@@ -62,18 +62,41 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #374151;
     }
+    @keyframes auroraDrift1 {
+      0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.35; }
+      50% { transform: translate(70px, 50px) scale(1.22) rotate(12deg); opacity: 0.65; }
+    }
+    @keyframes auroraDrift2 {
+      0%, 100% { transform: translate(0, 0) scale(1.1) rotate(0deg); opacity: 0.3; }
+      50% { transform: translate(-60px, -45px) scale(0.92) rotate(-10deg); opacity: 0.6; }
+    }
+    @keyframes auroraDrift3 {
+      0%, 100% { transform: translate(0, 0) scale(0.95); opacity: 0.35; }
+      50% { transform: translate(45px, -65px) scale(1.18); opacity: 0.7; }
+    }
+    .aurora-orb-1 {
+      animation: auroraDrift1 20s ease-in-out infinite;
+    }
+    .aurora-orb-2 {
+      animation: auroraDrift2 24s ease-in-out infinite;
+    }
+    .aurora-orb-3 {
+      animation: auroraDrift3 28s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col relative overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
   <!-- Particle canvas for magical ether dust -->
-  <canvas id="ether-canvas" class="fixed inset-0 pointer-events-none -z-10 w-full h-full opacity-60"></canvas>
+  <canvas id="ether-canvas" class="fixed inset-0 pointer-events-none -z-10 w-full h-full opacity-85"></canvas>
 
-  <!-- Ambient background glow blobs -->
-  <div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden">
-    <div class="absolute -top-40 left-1/4 w-[700px] h-[500px] bg-indigo-900/20 blur-[150px] rounded-full animate-pulse"></div>
-    <div class="absolute top-1/3 -right-32 w-[600px] h-[600px] bg-cyan-900/15 blur-[160px] rounded-full"></div>
-    <div class="absolute bottom-10 -left-20 w-[600px] h-[500px] bg-purple-950/25 blur-[150px] rounded-full"></div>
+  <!-- Ambient magical aura background -->
+  <div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden bg-[#030712]">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-15%,rgba(99,102,241,0.22),transparent_70%)]"></div>
+    <div class="aurora-orb-1 absolute -top-40 left-1/4 w-[850px] h-[650px] bg-gradient-to-br from-amber-500/25 via-indigo-600/30 to-purple-800/25 blur-[130px] rounded-full"></div>
+    <div class="aurora-orb-2 absolute top-1/3 -right-36 w-[800px] h-[800px] bg-gradient-to-tr from-cyan-500/25 via-blue-600/25 to-indigo-950/30 blur-[140px] rounded-full"></div>
+    <div class="aurora-orb-3 absolute -bottom-24 -left-28 w-[900px] h-[750px] bg-gradient-to-tr from-purple-900/30 via-violet-600/25 to-amber-600/20 blur-[130px] rounded-full"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(3,7,18,0.7)_100%)]"></div>
   </div>
 
   <!-- STICKY NAVBAR -->
@@ -194,7 +217,7 @@
           Las Novelas de la Saga
         </h2>
         <p class="text-slate-400 text-sm sm:text-base" id="sec-books-sub">
-          Descubre los libros ya publicados en español e inglés, disponibles en Amazon Kindle, tapa blanda y en la editorial española Adarve.
+          Descubre los libros ya publicados en español e inglés, disponibles en Amazon Kindle y tapa blanda.
         </p>
       </div>
 
@@ -236,11 +259,6 @@
                  class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition">
                 <i data-lucide="shopping-cart" class="w-4 h-4"></i>
                 <span id="btn-text-amazon-1">Comprar en Amazon</span>
-              </a>
-              <a href="https://editorial-adarve.com/editorial/libro/la-leyenda-de-las-esferas/" target="_blank" rel="noopener noreferrer" 
-                 class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center gap-2 transition" id="book-1-adarve-btn">
-                <i data-lucide="external-link" class="w-4 h-4 text-indigo-400"></i>
-                <span>Editorial Adarve</span>
               </a>
             </div>
           </div>
@@ -428,8 +446,8 @@
       <!-- Map Display Frame -->
       <div class="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-slate-800 bg-slate-900/80 shadow-2xl p-2 sm:p-4 mb-16 glow-cyan">
         <div class="rounded-2xl overflow-hidden bg-slate-950 relative border border-slate-800">
-          <img id="map-display-img" src="images/mapamundi_oficial.png" alt="Mapamundi de la Saga Lázaro" class="w-full h-auto object-cover max-h-[620px] transition duration-300">
-          <div class="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-slate-950/80 backdrop-blur-md border border-slate-700/60 text-slate-300 text-xs flex items-center gap-1.5">
+          <img id="map-display-img" src="images/mapamundi_oficial.png" alt="Mapamundi de la Saga Lázaro" class="w-full h-auto block rounded-xl shadow-lg transition duration-300">
+          <div class="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-slate-950/85 backdrop-blur-md border border-slate-700/60 text-slate-300 text-xs flex items-center gap-1.5 shadow-md">
             <i data-lucide="compass" class="w-4 h-4 text-emerald-400"></i>
             <span id="map-caption">Continente de Samiria · Cartografía Oficial</span>
           </div>
@@ -514,7 +532,7 @@
         
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <span class="text-xs font-bold uppercase tracking-widest text-amber-400" id="chars-badge">
-            Dramatis Personae
+            Personajes y Facciones
           </span>
           <h2 class="font-cinzel text-3xl sm:text-4xl font-extrabold text-white" id="chars-title">
             Los Protagonistas y Figuras Clave
@@ -799,9 +817,6 @@
             <span id="trailer-external-text">Abrir en YouTube (Pantalla Completa)</span>
             <i data-lucide="external-link" class="w-3.5 h-3.5 opacity-70"></i>
           </a>
-          <p id="trailer-note" class="text-xs text-slate-500 max-w-lg">
-            Si tu navegador o extensiones restringen vídeos incrustados (por ejemplo en local con file://), puedes reproducirlo directamente en YouTube.
-          </p>
         </div>
       </div>
     </section>
@@ -835,18 +850,18 @@
             </p>
           </div>
           <p class="text-slate-300 text-sm leading-relaxed font-light" id="authors-bio">
-            <strong>José Manuel Heredia</strong> (Málaga, 1986), ingeniero de software y desarrollador independiente de videojuegos bajo el seudónimo de Taos, ideó el universo de Lázaro tras años explorando la narrativa y el diseño de mundos interactivos. Junto a <strong>Elena García</strong>, ingeniera de software y coautora, forjaron una ambientación donde la magia elemental y la tecnología industrial colisionan, dando lugar a una mitología compartida que une novelas y videojuegos.
+            <strong>José Manuel Heredia</strong> (Málaga, 1986), desarrollador de videojuegos e ingeniero de software conocido como Taos, dio vida al universo de Lázaro combinando su experiencia en narrativa interactiva y mundos de fantasía. Junto a <strong>Elena García</strong>, ingeniera de software y coautora, crearon un mundo donde la magia elemental y el avance industrial se enfrentan, dando forma a una historia viva que une literatura y videojuegos.
           </p>
           <div class="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-3">
             <a href="https://josemhr.github.io/JoseMHR/" target="_blank" rel="noopener noreferrer" 
-               class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-1.5">
-              <i data-lucide="user" class="w-3.5 h-3.5 text-indigo-400"></i>
-              <span>Portfolio del Autor</span>
+               class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-2 border border-slate-700/60 shadow-md">
+              <i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span id="author-btn-jose">Portfolio de José Manuel</span>
             </a>
-            <a href="https://editorial-adarve.com/editorial/libro/la-leyenda-de-las-esferas/" target="_blank" rel="noopener noreferrer" 
-               class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-1.5">
-              <i data-lucide="book" class="w-3.5 h-3.5 text-amber-400"></i>
-              <span>Ficha Editorial Adarve</span>
+            <a href="https://github.com/ElenaGSSG" target="_blank" rel="noopener noreferrer" 
+               class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-2 border border-slate-700/60 shadow-md">
+              <i data-lucide="github" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span id="author-btn-elena">GitHub de Elena</span>
             </a>
           </div>
         </div>
@@ -864,41 +879,29 @@
         </p>
       </div>
 
-      <div class="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div class="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5">
         
         <!-- Telegram -->
         <a href="https://t.me/taosworld" target="_blank" rel="noopener noreferrer" 
-           class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center p-2.5 group-hover:scale-110 transition">
+           class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3 shadow-lg">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center p-3 group-hover:scale-110 transition border border-cyan-500/20">
             <img src="images/social_telegram.png" alt="Telegram" class="w-full h-full object-contain">
           </div>
           <div>
-            <h4 class="font-bold text-white text-sm">Telegram</h4>
-            <span class="text-xs text-slate-400">@taosworld</span>
+            <h4 class="font-bold text-white text-base">Canal de Telegram</h4>
+            <span class="text-xs text-cyan-400 font-mono">@taosworld</span>
           </div>
         </a>
 
-        <!-- Twitter / X -->
-        <a href="https://twitter.com/Taos_world" target="_blank" rel="noopener noreferrer" 
-           class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-600 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center p-2.5 group-hover:scale-110 transition">
-            <img src="images/social_twitter.png" alt="Twitter" class="w-full h-full object-contain">
+        <!-- Email Directo -->
+        <a href="mailto:jose.manuel.reyes.1986@gmail.com" 
+           class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/50 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3 shadow-lg">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center p-3 group-hover:scale-110 transition border border-amber-500/20">
+            <i data-lucide="mail" class="w-7 h-7"></i>
           </div>
           <div>
-            <h4 class="font-bold text-white text-sm">X / Twitter</h4>
-            <span class="text-xs text-slate-400">@Taos_world</span>
-          </div>
-        </a>
-
-        <!-- Discord -->
-        <a href="https://discord.com/channels/1209468022742323231" target="_blank" rel="noopener noreferrer" 
-           class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-indigo-500/40 hover:bg-slate-800/60 transition group flex flex-col items-center text-center space-y-3">
-          <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center p-2.5 group-hover:scale-110 transition">
-            <img src="images/social_discord.png" alt="Discord" class="w-full h-full object-contain">
-          </div>
-          <div>
-            <h4 class="font-bold text-white text-sm">Discord</h4>
-            <span class="text-xs text-slate-400">Comunidad Oficial</span>
+            <h4 class="font-bold text-white text-base" id="community-email-title">Contacto por Email</h4>
+            <span class="text-xs text-amber-400 font-mono">jose.manuel.reyes.1986@gmail.com</span>
           </div>
         </a>
 
@@ -1052,7 +1055,7 @@
         mapBadge: 'Geografía del Continente',
         mapTitle: 'El Mapamundi de Samiria',
         mapSub: 'Explora la cartografía oficial del continente, sus tres grandes regiones y las ciudades donde transcurre la trama.',
-        charsBadge: 'Dramatis Personae',
+        charsBadge: 'Personajes y Facciones',
         charsTitle: 'Los Protagonistas y Figuras Clave',
         charsSub: 'Conoce a los jóvenes elegidos que desafían a dos civilizaciones y a las fuerzas que mueven los hilos del conflicto.',
         loreBadge: 'El Conflicto Central',
@@ -1064,14 +1067,16 @@
         trailerLabelEs: '🇪🇸 Tráiler en Español (V.O.)',
         trailerLabelEn: '🇬🇧 Trailer in English',
         trailerExternalText: 'Abrir en YouTube (Pantalla Completa)',
-        trailerNote: 'Si tu navegador o extensiones restringen vídeos incrustados (por ejemplo en local con file://), puedes reproducirlo directamente en YouTube.',
         authorsBadge: 'Detrás de las Páginas',
         authorsTitle: 'Sobre los Autores',
         authorsSub: 'Ingeniería de software, pasión por las historias inmersivas y devoción por la fantasía contemporánea.',
         authorsRole: 'Autores & Creadores del Universo Lázaro',
-        authorsBio: '<strong>José Manuel Heredia</strong> (Málaga, 1986), ingeniero de software y desarrollador independiente de videojuegos bajo el seudónimo de Taos, ideó el universo de Lázaro tras años explorando la narrativa y el diseño de mundos interactivos. Junto a <strong>Elena García</strong>, ingeniera de software y coautora, forjaron una ambientación donde la magia elemental y la tecnología industrial colisionan, dando lugar a una mitología compartida que une novelas y videojuegos.',
+        authorsBio: '<strong>José Manuel Heredia</strong> (Málaga, 1986), desarrollador de videojuegos e ingeniero de software conocido como Taos, dio vida al universo de Lázaro combinando su experiencia en narrativa interactiva y mundos de fantasía. Junto a <strong>Elena García</strong>, ingeniera de software y coautora, crearon un mundo donde la magia elemental y el avance industrial se enfrentan, dando forma a una historia viva que une literatura y videojuegos.',
+        authorBtnJose: 'Portfolio de José Manuel',
+        authorBtnElena: 'GitHub de Elena',
         communityTitle: 'Únete a la Comunidad',
         communitySub: 'Canales oficiales para seguir las novedades, comentar la historia y contactar directamente.',
+        communityEmailTitle: 'Contacto por Email',
         footerCopy: 'COPYRIGHT © 2026 SAGA LÁZARO. TODOS LOS DERECHOS RESERVADOS.',
         footerTop: 'Volver arriba'
       },
@@ -1133,7 +1138,7 @@
         mapBadge: 'Continental Cartography',
         mapTitle: 'The World Map of Samiria',
         mapSub: 'Explore the official map of the continent, its three primary regions, and key locations throughout the saga.',
-        charsBadge: 'Dramatis Personae',
+        charsBadge: 'Characters & Factions',
         charsTitle: 'Protagonists and Key Figures',
         charsSub: 'Meet the chosen youths defying two opposing worlds, alongside the forces guiding the unfolding war.',
         loreBadge: 'Central Conflict',
@@ -1145,14 +1150,16 @@
         trailerLabelEs: '🇪🇸 Spanish Version (V.O.)',
         trailerLabelEn: '🇬🇧 English Version',
         trailerExternalText: 'Open in YouTube (Full Screen)',
-        trailerNote: 'If your browser or privacy extensions block embedded videos (such as opening via local file://), you can watch it directly on YouTube.',
         authorsBadge: 'Behind the Story',
         authorsTitle: 'About the Authors',
         authorsSub: 'Software engineering, worldbuilding devotion, and dark fantasy storytelling.',
         authorsRole: 'Creators & Authors of The Lazarus Universe',
         authorsBio: '<strong>José Manuel Heredia</strong> (born 1986 in Málaga, Spain), software engineer and indie game developer under the moniker Taos, conceived The Lazarus Saga after over a decade blending interactive storytelling and epic fantasy. Together with <strong>Elena García</strong>, software engineer and co-author, they crafted a universe where elemental magic meets industrial high-tech.',
+        authorBtnJose: "José Manuel's Portfolio",
+        authorBtnElena: "Elena's GitHub",
         communityTitle: 'Join the Community',
         communitySub: 'Official channels to follow updates, discuss lore theories, and connect directly.',
+        communityEmailTitle: 'Direct Email Contact',
         footerCopy: 'COPYRIGHT © 2026 THE LAZARUS SAGA. ALL RIGHTS RESERVED.',
         footerTop: 'Back to top'
       },
@@ -1214,7 +1221,7 @@
         mapBadge: '大陸の地図',
         mapTitle: 'サミリア世界地図',
         mapSub: 'サミリア大陸の公式地図。三つの主要地域と、物語の舞台となる都市を紹介。',
-        charsBadge: '登場人物',
+        charsBadge: '登場人物と勢力',
         charsTitle: '主人公と主要人物たち',
         charsSub: '二つの文明の運命を背負う若き主人公たちと、影で暗躍する重要人物。',
         loreBadge: '勢力と世界観',
@@ -1226,14 +1233,16 @@
         trailerLabelEs: '🇪🇸 スペイン語版 (V.O.)',
         trailerLabelEn: '🇬🇧 英語版',
         trailerExternalText: 'YouTubeで開く（全画面表示）',
-        trailerNote: 'ブラウザや拡張機能により動画の埋め込みがブロックされる場合は、YouTubeで直接ご視聴いただけます。',
         authorsBadge: '著者について',
         authorsTitle: '著者紹介',
         authorsSub: 'ソフトウェアエンジニアリングと物語への情熱が生み出した世界。',
         authorsRole: 'ラザロ・ユニバースの原作者',
         authorsBio: '<strong>ホセ・マヌエル・エレディア</strong>（1986年スペイン・マラガ生まれ）。Taos名義で活動するソフトウェアエンジニア兼インディーゲーム開発者。10年以上に及ぶゲーム開発と物語創作を経て本作を執筆。共同著者<strong>エレナ・ガルシア</strong>と共に、魔法と科学が交差する緻密な世界観を構築。',
+        authorBtnJose: 'ホセ・マヌエルのポートフォリオ',
+        authorBtnElena: 'エレナのGitHub',
         communityTitle: 'コミュニティに参加',
         communitySub: '最新情報や考察、公式アナウンスをお届けする公式チャンネル。',
+        communityEmailTitle: 'メールでのお問い合わせ',
         footerCopy: 'COPYRIGHT © 2026 THE LAZARUS SAGA. ALL RIGHTS RESERVED.',
         footerTop: 'トップへ戻る'
       }
@@ -1340,7 +1349,6 @@
       document.getElementById('label-trailer-es').textContent = d.trailerLabelEs;
       document.getElementById('label-trailer-en').textContent = d.trailerLabelEn;
       document.getElementById('trailer-external-text').textContent = d.trailerExternalText;
-      document.getElementById('trailer-note').textContent = d.trailerNote;
 
       if (lang === 'es') {
         switchTrailer('es');
@@ -1353,9 +1361,12 @@
       document.getElementById('authors-sub').textContent = d.authorsSub;
       document.getElementById('authors-role').textContent = d.authorsRole;
       document.getElementById('authors-bio').innerHTML = d.authorsBio;
+      document.getElementById('author-btn-jose').textContent = d.authorBtnJose;
+      document.getElementById('author-btn-elena').textContent = d.authorBtnElena;
 
       document.getElementById('community-title').textContent = d.communityTitle;
       document.getElementById('community-sub').textContent = d.communitySub;
+      document.getElementById('community-email-title').textContent = d.communityEmailTitle;
 
       document.getElementById('footer-copy').innerHTML = d.footerCopy;
       document.getElementById('footer-top').textContent = d.footerTop;
@@ -1368,63 +1379,117 @@
       const ctx = canvas.getContext('2d');
       let particles = [];
       let width, height;
+      let mouseX = -9999, mouseY = -9999;
 
       function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
       }
       window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+      window.addEventListener('mouseleave', () => {
+        mouseX = -9999;
+        mouseY = -9999;
+      });
       resize();
 
-      const colors = [
-        'rgba(245, 158, 11, 0.45)',
-        'rgba(99, 102, 241, 0.4)',
-        'rgba(6, 182, 212, 0.45)',
-        'rgba(168, 85, 247, 0.35)'
+      const particleColors = [
+        { r: 245, g: 158, b: 11 },  // amber gold
+        { r: 99, g: 102, b: 241 },  // ethereal indigo
+        { r: 6, g: 182, b: 212 },   // cosmic cyan
+        { r: 168, g: 85, b: 247 },  // mystic purple
+        { r: 251, g: 191, b: 36 }   // bright gold spark
       ];
 
-      const count = Math.min(Math.floor(width / 24), 55);
+      const count = Math.min(Math.floor(width / 15), 90);
       for (let i = 0; i < count; i++) {
+        const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+        const isMote = Math.random() < 0.28;
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 2 + 0.6,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35
+          radius: isMote ? Math.random() * 2.6 + 1.8 : Math.random() * 1.5 + 0.6,
+          isMote: isMote,
+          color: color,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: isMote ? -Math.random() * 0.45 - 0.15 : (Math.random() - 0.5) * 0.35,
+          phase: Math.random() * Math.PI * 2,
+          pulseSpeed: Math.random() * 0.03 + 0.015,
+          glowRadius: isMote ? Math.random() * 16 + 10 : 0
         });
       }
 
+      let time = 0;
       function animate() {
         ctx.clearRect(0, 0, width, height);
+        time += 0.02;
 
         for (let i = 0; i < particles.length; i++) {
           const p = particles[i];
+
+          // Movement
           p.x += p.vx;
           p.y += p.vy;
 
-          if (p.x < 0) p.x = width;
-          if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height;
-          if (p.y > height) p.y = 0;
+          // Gentle sway for rising motes
+          if (p.isMote) {
+            p.x += Math.sin(time + p.phase) * 0.35;
+          }
 
+          // Mouse gentle interaction
+          const mdx = p.x - mouseX;
+          const mdy = p.y - mouseY;
+          const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+          if (mdist < 150 && mdist > 0) {
+            const force = (150 - mdist) / 150;
+            p.x += (mdx / mdist) * force * 1.6;
+            p.y += (mdy / mdist) * force * 1.6;
+          }
+
+          // Screen wrapping
+          if (p.x < -15) p.x = width + 15;
+          if (p.x > width + 15) p.x = -15;
+          if (p.y < -15) p.y = height + 15;
+          if (p.y > height + 15) p.y = -15;
+
+          // Pulsing twinkle alpha
+          const currentAlpha = 0.35 + 0.45 * Math.sin(time * p.pulseSpeed * 60 + p.phase);
+          const c = p.color;
+
+          // Draw aura for glowing motes
+          if (p.isMote && p.glowRadius > 0) {
+            const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.glowRadius);
+            grad.addColorStop(0, `rgba(${c.r}, ${c.g}, ${c.b}, ${currentAlpha * 0.45})`);
+            grad.addColorStop(1, `rgba(${c.r}, ${c.g}, ${c.b}, 0)`);
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.glowRadius, 0, Math.PI * 2);
+            ctx.fillStyle = grad;
+            ctx.fill();
+          }
+
+          // Draw particle body
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
+          ctx.fillStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${currentAlpha})`;
           ctx.fill();
 
+          // Connect nearby particles with subtle celestial threads
           for (let j = i + 1; j < particles.length; j++) {
             const p2 = particles[j];
             const dx = p.x - p2.x;
             const dy = p.y - p2.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            if (dist < 115) {
+            if (dist < 120) {
+              const lineAlpha = (1 - dist / 120) * 0.16;
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = `rgba(245, 158, 11, ${0.12 * (1 - dist / 115)})`;
-              ctx.lineWidth = 0.6;
+              ctx.strokeStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${lineAlpha})`;
+              ctx.lineWidth = 0.65;
               ctx.stroke();
             }
           }
