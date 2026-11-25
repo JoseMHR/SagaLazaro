@@ -35,12 +35,4 @@ Sitio web oficial y portal literario del universo de fantasía oscura y ciencia 
 
 ---
 
-## 🚀 Despliegue en GitHub Pages
-
-1. **Repositorio:** `https://github.com/JoseMHR/SagaLazaro`
-2. **Página pública:** `https://josemhr.github.io/SagaLazaro/`
-3. En GitHub: **Settings > Pages > Branch: main / root > Save**.
-
----
-
 *© 2026 José Manuel Heredia Reyes & Elena García Sánchez. Todos los derechos reservados.*
